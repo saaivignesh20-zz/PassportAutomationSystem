@@ -1,0 +1,274 @@
+<html>
+
+<head>
+    <title>Passport Department</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" crossorigin="anonymous">
+    <link href="dashboard/css/dashboard.css" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar navbar-dark bg-dark flex-md-nowrap p-0 shadow bor sticky-top"
+        style="background-color: white !important; border: 0; width: 100vw; align-content: center; justify-content: center;">
+        <a class="navbar-brand index-header"
+            style="box-shadow: none; color: black; border: 0;background: white; padding-left: 20px; font-size: 12pt;"
+            href="#"><img class="top-icon" src="dashboard/img/gov.png"><b class="page-title">Passport Department</b></a>
+            <div class="page-title" style="float: right; font-weight: 100;">Online Passport Application</div>
+    </nav>
+    <div class="page-container">
+        
+        <div class="index-login-box">
+            <div class="notification-login">
+                <div class="notification-text">
+                    <b>To apply or continue the application for your passport, you must sign in first.</b>
+                </div>
+                <div class="index-link">
+                If you're already registered,<br>
+                <button type="button" class="btn btn-passport mediumwidth m-2" data-toggle="modal" onclick="showLoginForm(true);" data-target="#loginModal">Log In</button>
+                </div>
+                <br>
+                <div class="index-link">
+                    Or if you're new here, please<br>
+                    <button class="btn btn-passport-gray mediumwidth m-2" data-toggle="modal" data-target="#signUpModal">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <!-- Modal -->
+        <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalTitle"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="loginModalLongTitle">
+                            <i id="backButton" onclick="showLoginForm()" class="fa fa-arrow-left"></i>
+                            <span id="titleText">Log In</span>
+                        </h5>
+                        <button type="button" class="close" title="Close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm" id="emailEntryForm">
+                                    <form action="" onsubmit="validateEmail(event)">
+                                        <div class="form-group">
+                                            <label for="emailAddressField">Enter your email ID:</label>
+                                            <input type="email" class="form-control" id="emailAddressField" required
+                                                placeholder="Email Address" maxlength="64">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-passport" style="width: 30%">Next
+                                                &#187;</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="col-sm" id="passwordEntryForm" style="display: none;">
+                                    <form action="dashboard">
+                                        <div class="form-group">
+                                            <label for="passwordField" id="passwordLabel"></label>
+                                            <input type="password" class="form-control" id="passwordField" required
+                                                placeholder="Password" minlength="4" maxlength="64">
+                                            <span title="View/Hide Password" toggle="#passwordField" class="fa fa-fw fa-eye-slash field-icon toggle-password"></span>
+                                        </div>
+
+                                        <label class="checkbox-container">Remember Me
+                                            <input type="checkbox" id="rememberMe" name="rememberMe">
+                                            <span class="checkmark"></span>
+                                        </label>
+
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-passport" style="width: 30%">Log
+                                                In</button>
+                                            <button type="button" class="btn btn-link"
+                                                data-target="#forgotPasswordModal" data-toggle="modal"
+                                                onclick="resetEmail.value= emailAddressField.value; resetForgotPasswordConfirmation()">Forgot
+                                                Password</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="signUpModal" tabindex="-1" role="dialog" aria-labelledby="signUpModalLabel"
+            aria-hidden="true">
+            <form onsubmit="onSignup()">
+                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Sign Up</h5>
+                        <button type="button" class="close" title="Close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <div class="form-group">
+                                        <label for="firstName" class="mandatory">First Name:</label>
+                                        <input type="text" class="form-control" id="firstName" name="firstName" maxlength="64" required />
+                                    </div>
+                                </div>
+                                <div class="col-sm">
+                                    <div class="form-group">
+                                        <label for="middleName">Middle Name:</label>
+                                        <input type="text" class="form-control" id="middleName" name="middleName" maxlength="64" />
+                                    </div>
+                                </div>
+                                <div class="col-sm">
+                                    <div class="form-group">
+                                        <label for="lastName" class="mandatory">Last Name:</label>
+                                        <input type="text" class="form-control" id="lastName" name="lastName" maxlength="64" required />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm">
+                                    <div class="form-group">
+                                        <label for="emailID" class="mandatory">Email ID:</label>
+                                        <input type="email" class="form-control" id="emailID" name="emailID" maxlength="64" required />
+                                    </div>
+                                </div>
+                                <div class="col-sm">
+                                    <div class="form-group">
+                                        <label for="mobileNumber" class="mandatory">Mobile Number:</label>
+                                        <input type="tel" class="form-control" id="mobileNumber" name="mobileNumber" onkeypress="return isValidPhoneNumber(event)" maxlength="16" required />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm">
+                                    <div class="form-group">
+                                        <label for="password" class="mandatory">Password:</label>
+                                        <input type="password" class="form-control" id="password" name="password" minlength="8" maxlength="64" required />
+                                        <span title="View/Hide Password" toggle="#password" class="fa fa-fw fa-eye-slash field-icon toggle-password"></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm">
+                                    <div class="form-group">
+                                        <label for="confirmPassword" class="mandatory">Confirm Password:</label>
+                                        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" minlength="8" maxlength="64" required />
+                                        <span title="View/Hide Password" toggle="#password" class="fa fa-fw fa-eye-slash field-icon toggle-password"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm">
+                                    <div class="form-group">
+                                        <label class="checkbox-container mandatory">I agree to all <a href="#">Terms and Conditions</a>.
+                                            <input type="checkbox" id="agreeTOC" name="agreeTOC" required />
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm">
+                                    <div class="form-group">
+                                        Fields marked with <span class="mandatory"></span> are to be mandatorily filled in.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-passport">Sign Up</button>
+                        <button type="button" class="btn btn-passport-gray" data-dismiss="modal">Cancel</button>
+                    </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="modal modal-stack fade" id="forgotPasswordModal" tabindex="-1" role="dialog"
+            aria-labelledby="forgotPasswordModal">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Forgot Password</h5>
+                        <button type="button" class="close" title="Close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form onsubmit="showConfirmation(event)">
+                        <div class="modal-body">
+                            <div class="centerbox form-group" id="resetPasswordForm">
+                                <label for="fpEmailAddress">Enter the email address below to reset password:</label>
+                                <input type="email" id="resetEmail" class="form-control" placeholder="Email Address"
+                                    required autofocus />
+                            </div>
+                            <div class="row" id="emailConfirmationText" style="display: none;">
+                                <div class="col">
+                                    Check your email for a link to reset your password. If it doesn’t appear within a
+                                    few
+                                    minutes, check your spam folder.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer text-center">
+                            <button type="submit" class="btn btn-passport-gray" id="resetPasswordButton">Reset
+                                Password</button>
+                            <button type="button" class="btn btn-passport btn-block" id="emailConfirmationButton"
+                                style="display: none;" data-dismiss="modal">Go to [Email]</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal modal-stack fade" id="signUpCompleteModal" tabindex="-1" role="dialog"
+            aria-labelledby="signUpCompleteModal">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Sign Up</h5>
+                        <button type="button" class="close" title="Close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row" id="signUpCompleteText">
+                            <div class="col">
+                                Sign Up Complete. Please check your email for confirmation.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer text-center">
+                        <button type="button" class="btn btn-passport-gray" id="signUpCompleteClose" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="loader-container">
+            <div class="loader"></div>
+        </div>
+    </div>
+</body>
+<!-- JS, Popper.js, and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+    crossorigin="anonymous"></script>
+<script src="index.js"></script>
+<script lang="javascript">
+    $(document).ready(function () {
+        $(".loader-container").fadeOut();
+    });
+</script>
+
+</html>
