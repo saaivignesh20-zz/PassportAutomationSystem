@@ -15,12 +15,12 @@
 
 <body>
   <nav class="navbar navbar-dark bg-dark flex-md-nowrap p-0 shadow sticky-top">
-    <a class="navbar-brand col-md-4 col-lg-2 mr-0 px-3" style="font-size: 14pt; display: none;"
-      href="#"><b>Passport Enquiry System</b></a>
-      <b class="px-3 clock" style="position:absolute; right: 0; color: white; font-size: 10pt; font-weight: 500;">
-        <b id="dateField"></b>
-        <br><span id="timeField"></span>
-      </b>
+    <a class="navbar-brand col-md-4 col-lg-2 mr-0 px-3" style="font-size: 14pt; display: none;" href="#"><b>Passport
+        Enquiry System</b></a>
+    <b class="px-3 clock" style="position:absolute; right: 0; color: white; font-size: 10pt; font-weight: 500;">
+      <b id="dateField"></b>
+      <br><span id="timeField"></span>
+    </b>
     <button class="navbar-toggler sticky-top position-absolute d-md-none collapsed" type="button" data-toggle="collapse"
       data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -85,7 +85,7 @@
             <li class="nav-item">
               <a class="nav-link" href="?logout" data-navigator="Logout">
                 <i class="material-icons-outlined icon">exit_to_app</i>
-                <span class="text">Logout</span>
+                <span class="text">Log Out</span>
               </a>
             </li>
           </ul>
@@ -96,9 +96,34 @@
         </div>
       </nav>
       <main role="main" id="mainContainer" class="col-md-8 ml-auto col-lg-10 px-md-4">
-        
-    </main>
-  </div>
+
+      </main>
+
+      <div class="modal modal-stack fade" id="msgModal" tabindex="-1" role="dialog"
+        aria-labelledby="msgModal">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="msgTitle">[Message Title]</h5>
+              <button type="button" class="close" title="Close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="row" id="signUpCompleteText">
+                <div class="col" id="msgText">
+                  [Message Text]
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer text-center">
+              <button type="button" class="btn btn-passport-gray" id="msgButton"
+                data-dismiss="modal">OK</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="loader-container">
@@ -113,6 +138,7 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
     integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
     crossorigin="anonymous"></script>
+    <script src="js/auth.js"></script>
   <script src="js/index.js"></script>
 </body>
 

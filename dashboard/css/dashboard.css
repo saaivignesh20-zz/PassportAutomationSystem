@@ -792,3 +792,10 @@ form {
 	text-align: center;
 	display: none;
 }
+
+.modal {
+	z-index: 10002;
+}
+.modal-backdrop {
+	z-index: 10001;
+}

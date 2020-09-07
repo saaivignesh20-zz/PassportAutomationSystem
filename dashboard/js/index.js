@@ -41,16 +41,22 @@ function handleQuery() {
 
 function loadPage(url) {
     $(".loader-container").fadeIn(function() {
-        $("#mainContainer").load("pages/" + url, function(responseText, textStatus) {
-            if (textStatus == "error") {
-                $("#mainContainer").html("");
-                $(".loader-container").fadeOut();
-            } else {
-                onPageLoad(function() {
+        verifyCookie(function() {
+            $("#mainContainer").load("pages/" + url, function(responseText, textStatus) {
+                if (textStatus == "error") {
+                    $("#mainContainer").html("");
                     $(".loader-container").fadeOut();
-                });
-            }
-            changeActiveLinkState();
+                } else {
+                    try {
+                        onPageLoad(function() {
+                            $(".loader-container").fadeOut();
+                        });
+                    } catch {
+                        $(".loader-container").fadeOut();
+                    }                    
+                }
+                changeActiveLinkState();
+            });
         });
     });
 }

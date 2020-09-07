@@ -2,10 +2,11 @@
 $('#passwordField').tooltip({trigger:'manual', placement:'auto', container:'body'}); */
 
 function showPasswordForm() {
-    event.preventDefault();
     passwordLabel.innerHTML = "Welcome back, " + emailAddressField.value + ".";
     $("#emailEntryForm").fadeOut(function() {
-        $("#passwordEntryForm").fadeIn();
+        $("#passwordEntryForm").fadeIn(function() {
+            setTimeout(function() { passwordField.focus(); }, 500);
+        });
         $("#backButton").fadeIn();
         titleText.innerHTML = "Back";
     });
@@ -15,7 +16,9 @@ function showLoginForm(fast) {
     if (!fast) {
         $("#passwordEntryForm").fadeOut()
         $("#backButton").fadeOut(function() {
-            $("#emailEntryForm").fadeIn();
+            $("#emailEntryForm").fadeIn(function() {
+                setTimeout(function() { emailAddressField.focus(); }, 500);
+            });
             passwordLabel.innerHTML = "Enter your email ID:";
             titleText.innerHTML = "Log In";
         });
@@ -26,6 +29,7 @@ function showLoginForm(fast) {
         emailEntryForm.style.display = "initial";
         passwordField.value = "";
         emailAddressField.value = "";
+        setTimeout(function() { emailAddressField.focus(); }, 500);
     }
 }
 
@@ -144,6 +148,10 @@ $(document).ready(function () {
         }
         input.focus();
     });
+
+    verifyCookie(function() {
+        window.location.href = "dashboard";
+    });
 });
 
 function validateEmail(event) {
@@ -197,6 +205,7 @@ function validatePassword(event) {
             $(".signon-button-text").show();
             $(".signon-loader-container").hide();
             $(".signon-button").removeAttr("disabled");
+            console.log(this.responseText);
             let responseArray = JSON.parse(this.responseText);
             let result = responseArray['result'];
             if (result == 'valid') {
