@@ -1,4 +1,7 @@
-function showPasswordForm(event) {
+/* $('#emailAddressField').tooltip({trigger:'manual', placement:'auto', container:'body'});
+$('#passwordField').tooltip({trigger:'manual', placement:'auto', container:'body'}); */
+
+function showPasswordForm() {
     event.preventDefault();
     passwordLabel.innerHTML = "Welcome back, " + emailAddressField.value + ".";
     $("#emailEntryForm").fadeOut(function() {
@@ -145,15 +148,65 @@ $(document).ready(function () {
 
 function validateEmail(event) {
     event.preventDefault();
+    hideAllSnackMessages();
+    $(".signon-button").attr("disabled", true);
+    $(".signon-button-text").hide();
+    $(".signon-loader-container").css('display', 'inline-block');
     email_id = emailAddressField.value;
     // validate email on server
     var xhttp = new XMLHttpRequest();
+    xhttp.open("POST", "/pas_backend/authenticate.php", true);
+    xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhttp.setRequestHeader('Cache-Control', 'no-cache');
+
 	xhttp.onreadystatechange = function () {
 		if (this.readyState == 4 && this.status == 200) {
-			console.log(this.responseText);
+            $(".signon-button-text").show();
+            $(".signon-loader-container").hide();
+            $(".signon-button").removeAttr("disabled");
+            let responseArray = JSON.parse(this.responseText);
+            let result = responseArray['result'];
+            if (result == 'valid') {
+                console.log("Email address validation successful!");
+                showPasswordForm();
+            } else {
+                console.log("Email address validation failed!");
+                showSnackMessage("An account with given e-mail ID doesn't exist!", null, {type:'error',container:'#signOnMessageContainer',autoHide:false,fullWidth:true})
+            }
 		}
-	};
-	xhttp.open("POST", "/pas_backend/authenticate.php", true);
-	xhttp.setRequestHeader('Cache-Control', 'no-cache');
-	xhttp.send("validate=email&value=" + email_id);
+    };
+	xhttp.send("validate=email&emailID=" + email_id);
+}
+
+function validatePassword(event) {
+    event.preventDefault();
+    hideAllSnackMessages();
+    $(".signon-button").attr("disabled", true);
+    $(".signon-button-text").hide();
+    $(".signon-loader-container").css('display', 'inline-block');
+    email_id = emailAddressField.value;
+    password = passwordField.value;
+    // validate email on server
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("POST", "/pas_backend/authenticate.php", true);
+    xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhttp.setRequestHeader('Cache-Control', 'no-cache');
+
+	xhttp.onreadystatechange = function () {
+		if (this.readyState == 4 && this.status == 200) {
+            $(".signon-button-text").show();
+            $(".signon-loader-container").hide();
+            $(".signon-button").removeAttr("disabled");
+            let responseArray = JSON.parse(this.responseText);
+            let result = responseArray['result'];
+            if (result == 'valid') {
+                console.log("Password validation successful!");
+                window.location.href = "dashboard";
+            } else {
+                console.log("Password validation failed!");
+                showSnackMessage("Incorrect Password! Please check and try again.", null, {type:'error',container:'#signOnMessageContainer',autoHide:false,fullWidth:true})
+            }
+		}
+    };
+    xhttp.send("validate=password&emailID=" + email_id + "&password=" + password);
 }

@@ -1,0 +1,56 @@
+.snackmsg {
+    padding: 8px;
+    text-align: center;
+    font-size: 12pt;
+    color: white;
+    font-weight: bold;
+    display: block;
+    margin: 8px;
+    display: none;
+}
+
+.snack-fullwidth {
+    width: 100%;
+}
+
+.snack-info {
+    border-radius: 8px;
+    background-color: #007FFF;
+}
+
+.snack-error {
+    border-radius: 8px;
+    background-color: #8A0707;
+}
+
+.snack-warning {
+    border-radius: 8px;
+    background-color: #ffa500;
+}
+
+.snack-close {
+    width: 16px;
+    height: 16px;
+    float: right;
+    display: none;
+    border: 0;
+    background-color: transparent;
+    color: white;
+    margin: 0;
+    padding: 0;
+    font-size: 12pt;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.snack-close:focus {
+    outline: none;
+}
+
+.snack-close:hover {
+    text-shadow: 0px 0px 4px black;
+}
+
+.snack-close-visible {
+    display: block;
+}
