@@ -1,0 +1,112 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+
+</head>
+
+<body>
+    <div
+        class="panelfont justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <span id="greetings">Profile Settings</span>
+    </div>
+    <div class="panelfont container justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3"
+        id="editProfile">
+        <form id="editprofileForm">
+            <div id="editProfile1">
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="form-group">
+                            <label for="firstName" class="mandatory">First Name:</label>
+                            <input type="text" class="form-control" id="firstName" name="firstName" maxlength="64"
+                                required />
+                        </div>
+                    </div>
+                    <div class="col-sm">
+                        <div class="form-group">
+                            <label for="middleName">Middle Name:</label>
+                            <input type="text" class="form-control" id="middleName" name="middleName" maxlength="64" />
+                        </div>
+                    </div>
+                    <div class="col-sm">
+                        <div class="form-group">
+                            <label for="lastName" class="mandatory">Last Name:</label>
+                            <input type="text" class="form-control" id="lastName" name="lastName" maxlength="64"
+                                required />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="form-group">
+                            <label for="emailID" class="mandatory">Email ID:</label>
+                            <input type="email" class="form-control" id="emailID" name="emailID" maxlength="64"
+                                required />
+                        </div>
+                    </div>
+                    <div class="col-sm">
+                        <div class="form-group">
+                            <label for="mobileNumber" class="mandatory">Mobile Number:</label>
+                            <input type="tel" class="form-control" id="mobileNumber" name="mobileNumber"
+                                onkeypress="return isValidPhoneNumber(event)" maxlength="16" required />
+                        </div>
+                    </div>
+                </div>    
+                <div class="row" style=text-align:center>
+                    <div class="col-sm">
+                        <div class="form-group">
+                            <button type="button" class="btn btn-passport" onclick="alert('Details Updated.')">Update Profile</button>
+                        </div>
+                    </div>
+                    
+                </div>    
+                    
+                </div>
+            </div>
+
+
+        </form>
+        <div
+            class="panelfont justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <span id="greetings">Change Password</span>
+        </div>
+        <form id=changePassword>
+            <div class="row">
+                <div class="col-sm">
+                    <div class="form-group">
+                        <label for="currentpassword" class="mandatory">Current Password:</label>
+                        <input type="password" class="form-control" id="password" name="password" minlength="8" maxlength="64" required />
+                        <span title="View/Hide Password" toggle="#password" class="fa fa-fw fa-eye-slash field-icon toggle-password"></span>
+                    </div>
+                </div>    
+                <div class="col-sm">    
+                    <div class="form-group">
+                        <label for="confirmPassword" class="mandatory">Confirm Password:</label>
+                        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" minlength="8" maxlength="64" required />
+                        <span title="View/Hide Password" toggle="#password" class="fa fa-fw fa-eye-slash field-icon toggle-password"></span>
+                    </div>
+                </div>    
+                <div class="col-sm">   
+                    <div class="form-group">
+                        <label for="newPassword" class="mandatory">New Password:</label>
+                        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" minlength="8" maxlength="64" required />
+                        <span title="View/Hide Password" toggle="#password" class="fa fa-fw fa-eye-slash field-icon toggle-password"></span>
+                    </div>
+                </div>
+                 
+            </div>
+            <div class="row" style=text-align:center>
+                <div class="col-sm">   
+                <div class="form-group">
+                    <button type="button" class="btn btn-passport" onclick="alert('Password Updated.')">
+                    Update Password</button>
+                </div>
+            </div>
+            </div>   
+        </form>
+    </div>
+</body>
+
+<script src="js/applyPassport.js"></script>
+
+</html>
