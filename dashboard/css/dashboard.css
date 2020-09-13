@@ -871,3 +871,12 @@ form {
 .modal-backdrop {
 	z-index: 10001;
 }
+
+#greetings {
+	font-size: 14pt;
+}
+
+.form-control[type=button] {
+	line-height: normal;
+	height: auto;
+}

@@ -1,7 +1,11 @@
+var screenName = "";
 var navData = "";
 $(document).ready(function () {
     updateTime();
     clk = setInterval(updateTime, 1000);
+    $(window).on("popstate", function(e) {
+        handleQuery();
+    });
     $("a").on("click", function(event) {
         event.preventDefault();
         link = $(event.target).attr('href');
@@ -36,26 +40,31 @@ function handleQuery() {
         "logout" : "logout.htm"
     }
     page = pages[query];
+    if (window.outerWidth <= 767 && $("#navToggler").attr("aria-expanded") == "true") {
+        $("#navToggler").click();
+    }
     loadPage(page)
 }
 
 function loadPage(url) {
     $(".loader-container").fadeIn(function() {
         verifyCookie(function() {
-            $("#mainContainer").load("pages/" + url, function(responseText, textStatus) {
-                if (textStatus == "error") {
-                    $("#mainContainer").html("");
-                    $(".loader-container").fadeOut();
-                } else {
-                    try {
-                        onPageLoad(function() {
-                            $(".loader-container").fadeOut();
-                        });
-                    } catch {
+            getUserScreenName(function() {
+                $("#mainContainer").load("pages/" + url, function(responseText, textStatus) {
+                    if (textStatus == "error") {
+                        $("#mainContainer").html("");
                         $(".loader-container").fadeOut();
-                    }                    
-                }
-                changeActiveLinkState();
+                    } else {
+                        try {
+                            onPageLoad(function() {
+                                $(".loader-container").fadeOut();
+                            });
+                        } catch {
+                            $(".loader-container").fadeOut();
+                        }                    
+                    }
+                    changeActiveLinkState();
+                });
             });
         });
     });
@@ -90,4 +99,43 @@ function updateTime() {
 	date.getHours() >= 12 ? tt = "pm" : tt = "am";
 
 	timeField.innerHTML = hh + ":" + mm + " " + tt;
+}
+
+function getUserScreenName(callback) {
+    let screenName = '';
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("POST", "/pas_backend/getDetails.php", true);
+    xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhttp.setRequestHeader('Cache-Control', 'no-cache');
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText);
+            let responseArray = JSON.parse(this.responseText);
+            let result = responseArray['result'];
+            if (result != '') {
+                window.screenName = result;
+                $(".profilename").html(window.screenName);
+                callback();
+            } else {
+                msgTitle.innerHTML = "Unexpected Error";
+                msgText.innerHTML = "There was an error satisfying your request. Please try again later.<br><b>Error Code:</b> SERVER_BAD_REQUEST";
+                msgButton.onclick = function() {
+                    window.location.href = "../";
+                }
+                setCookie('pas_auth', '', 0);
+                $("#msgModal").modal({keyboard: false,backdrop: 'static'});
+            }
+        }
+    };
+    xhttp.send("info=screenName");
+}
+
+function showFatalErrorMsg(title, msg) {
+    msgTitle.innerHTML = title;
+    msgText.innerHTML = msg;
+    msgButton.onclick = function() {
+        window.location.href = "../";
+    }
+    setCookie('pas_auth', '', 0);
+    $("#msgModal").modal({keyboard: false,backdrop: 'static'});
 }

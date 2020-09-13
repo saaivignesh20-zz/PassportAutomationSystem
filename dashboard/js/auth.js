@@ -21,7 +21,7 @@ function setCookie(cname, cvalue, exdays) {
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
   }
 
-function verifyCookie(callback) {
+function verifyCookie(success_callback) {
     pasAuth = getCookie('pas_auth');
     if (pasAuth != "") {
         /* pasAuthDecoded = atob(pasAuth);
@@ -31,35 +31,27 @@ function verifyCookie(callback) {
         xhttp.open("POST", "/pas_backend/authenticate.php", true);
         xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         xhttp.setRequestHeader('Cache-Control', 'no-cache');
-
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 console.log(this.responseText);
                 let responseArray = JSON.parse(this.responseText);
                 let result = responseArray['result'];
                 if (result == 'valid') {
-                    callback();
+                    success_callback();
                 } else {
-                    msgTitle.innerHTML = "Session Expired";
-                    msgText.innerHTML = "You need to sign-in again.";
-                    msgButton.onclick = function() {
-                        window.location.href = "../";
-                    }
-                    setCookie('pas_auth', '', 0);
-                    $("#msgModal").modal("show");
+                    showFatalErrorMsg("Session Expired", "You need to sign-in again.");
                 }
             }
         };
-        xhttp.send("validate=token&cookie=" + pasAuth);
+        xhttp.send("validate=token");
     } else {
-        if (window.location.href.endsWith("dashboard/")) {
+        if (window.location.href.indexOf("dashboard/") > -1) {
             msgTitle.innerHTML = "Log In Required";
             msgText.innerHTML = "You need to sign-in first.";
             msgButton.onclick = function() {
                 window.location.href = "../";
             }
-            $("#msgModal").modal("show");
+            $("#msgModal").modal({keyboard: false,backdrop: 'static'});
         }
-    }
-    
+    }   
 }

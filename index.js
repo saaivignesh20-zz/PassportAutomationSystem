@@ -194,6 +194,7 @@ function validatePassword(event) {
     $(".signon-loader-container").css('display', 'inline-block');
     email_id = emailAddressField.value;
     password = passwordField.value;
+    remember_me = rememberMe.checked.toString();
     // validate email on server
     var xhttp = new XMLHttpRequest();
     xhttp.open("POST", "/pas_backend/authenticate.php", true);
@@ -217,5 +218,5 @@ function validatePassword(event) {
             }
 		}
     };
-    xhttp.send("validate=password&emailID=" + email_id + "&password=" + password);
+    xhttp.send("validate=password&emailID=" + email_id + "&password=" + password + "&rememberMe=" + remember_me);
 }

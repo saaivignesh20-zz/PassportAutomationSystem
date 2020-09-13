@@ -4,5 +4,5 @@ function onPageLoad(callback) {
 }
 
 function greetUser() {
-	greetings.innerHTML = "Welcome Team Backtrack!";
+	greetings.innerHTML = "Welcome " + window.screenName + "!";
 }
