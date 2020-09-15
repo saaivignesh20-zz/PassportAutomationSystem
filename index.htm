@@ -28,7 +28,7 @@
                 </div>
                 <div class="index-link">
                 If you're already registered,<br>
-                <button type="button" class="btn btn-passport mediumwidth m-2" data-toggle="modal" onclick="showLoginForm(true);" data-target="#loginModal">Log In</button>
+                <button type="button" id="loginFormButton" class="btn btn-passport mediumwidth m-2" data-toggle="modal" onclick="showLoginForm(true);" data-target="#loginModal">Log In</button>
                 </div>
                 <br>
                 <div class="index-link">
@@ -113,7 +113,7 @@
         <!-- Modal -->
         <div class="modal fade" id="signUpModal" tabindex="-1" role="dialog" aria-labelledby="signUpModalLabel"
             aria-hidden="true">
-            <form onsubmit="onSignup()">
+            <form id="signUpForm" method="POST" onsubmit="onSignUp(event)">
                 <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                     <div class="modal-content">
                     <div class="modal-header">
@@ -124,6 +124,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="container">
+                            <div class="row" id="signUpMessageContainer"></div>
                             <div class="row">
                                 <div class="col-sm">
                                     <div class="form-group">
@@ -170,7 +171,7 @@
                                     <div class="form-group">
                                         <label for="confirmPassword" class="mandatory">Confirm Password:</label>
                                         <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" minlength="8" maxlength="64" required />
-                                        <span title="View/Hide Password" toggle="#password" class="fa fa-fw fa-eye-slash field-icon toggle-password"></span>
+                                        <span title="View/Hide Password" toggle="#confirmPassword" class="fa fa-fw fa-eye-slash field-icon toggle-password"></span>
                                     </div>
                                 </div>
                             </div>
@@ -192,7 +193,12 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-passport">Sign Up</button>
+                        <button type="submit" class="signon-button btn btn-passport">
+                            <span class="signon-button-text">Sign Up</span>
+                            <div class="signon-loader-container">
+                                <div class="signon-loader"></div>
+                            </div>
+                        </button>
                         <button type="button" class="btn btn-passport-gray" data-dismiss="modal">Cancel</button>
                     </div>
                     </div>
@@ -232,30 +238,6 @@
                                 style="display: none;" data-dismiss="modal">Go to [Email]</button>
                         </div>
                     </form>
-                </div>
-            </div>
-        </div>
-
-        <div class="modal modal-stack fade" id="signUpCompleteModal" tabindex="-1" role="dialog"
-            aria-labelledby="signUpCompleteModal">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Sign Up</h5>
-                        <button type="button" class="close" title="Close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row" id="signUpCompleteText">
-                            <div class="col">
-                                Sign Up Complete. Please check your email for confirmation.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer text-center">
-                        <button type="button" class="btn btn-passport-gray" id="signUpCompleteClose" data-dismiss="modal">Close</button>
-                    </div>
                 </div>
             </div>
         </div>
@@ -319,7 +301,33 @@
             msgText.innerHTML = "Log Out Successful.";
             msgButton.onclick = null;
             $("#msgModal").modal({keyboard: false,backdrop: 'static'});
-        }   
+        } else if (query == "activation_success") {
+            link = window.location.href.substring(0, window.location.href.indexOf("?"));
+            let stateObj = { id: "100" }; 
+            window.history.pushState(stateObj, null, link); 
+            msgTitle.innerHTML = "Account Activation";
+            msgText.innerHTML = "Your account has been successfully activated! Click OK to Log In.";
+            msgButton.onclick = function() {
+                $("#loginFormButton").click();
+            };
+            $("#msgModal").modal({keyboard: false,backdrop: 'static'});
+        } else if (query == "activation_failure") {
+            link = window.location.href.substring(0, window.location.href.indexOf("?"));
+            let stateObj = { id: "100" }; 
+            window.history.pushState(stateObj, null, link); 
+            msgTitle.innerHTML = "Account Activation";
+            msgText.innerHTML = "Oops! We could not activate your new account because either the activation code is expired or incorrect. Please try signing up again.";
+            msgButton.onclick = null;
+            $("#msgModal").modal({keyboard: false,backdrop: 'static'});
+        } else if (query == "activation_server_error") {
+            link = window.location.href.substring(0, window.location.href.indexOf("?"));
+            let stateObj = { id: "100" }; 
+            window.history.pushState(stateObj, null, link); 
+            msgTitle.innerHTML = "Account Activation";
+            msgText.innerHTML = "Oops! We could not activate your new account because the server encountered an unexpected error. Please try activating/signing up again.";
+            msgButton.onclick = null;
+            $("#msgModal").modal({keyboard: false,backdrop: 'static'});
+        }
     });
 </script>
 

@@ -33,11 +33,12 @@ function verifyCookie(success_callback) {
         xhttp.setRequestHeader('Cache-Control', 'no-cache');
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                console.log(this.responseText);
                 let responseArray = JSON.parse(this.responseText);
                 let result = responseArray['result'];
-                if (result == 'valid') {
+                if (result == "valid") {
                     success_callback();
+                } else if (result == "notactive") {
+                    showFatalErrorMsg("Account Inactive", "The account is marked inactive.<br><br>This might have happened because either the Administrator has disabled your account or somewhere authentication went wrong.");
                 } else {
                     showFatalErrorMsg("Session Expired", "You need to sign-in again.");
                 }

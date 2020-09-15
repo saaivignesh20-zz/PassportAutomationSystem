@@ -124,9 +124,54 @@ function resetForgotPasswordConfirmation() {
     emailConfirmationText.style.display = "none";
 }
 
-function onSignup() {
+function onSignUp(event) {
     event.preventDefault();
-    $("#signUpCompleteModal").modal("show");
+
+    // check if password and confirmPassword are same
+    pass = password.value;
+    confirmPass = confirmPassword.value;
+    hideAllSnackMessages();
+    if (pass != confirmPass) {
+        hideAllSnackMessages();
+        showSnackMessage("Password and Confirm Password do not match.", null, {type:'error',container:'#signUpMessageContainer',autoHide:false,fullWidth:true})
+        return;
+    }
+    //showSnackMessage("Please wait...", null, {type:'info',container:'#signUpMessageContainer',autoHide:false,fullWidth:true})
+    /* $("#signUpModal").modal('hide');
+    showMsgModal("Sign Up", "Sign Up Successful! Please check your inbox for the activation link.");
+    return; */
+    $(".signon-button").attr("disabled", true);
+    $(".signon-button-text").hide();
+    $(".signon-loader-container").css('display', 'inline-block');
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("POST", "/pas_backend/signup.php", true);
+    xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhttp.setRequestHeader('Cache-Control', 'no-cache');
+
+	xhttp.onreadystatechange = function () {
+		if (this.readyState == 4 && this.status == 200) {
+            $(".signon-button-text").show();
+            $(".signon-loader-container").hide();
+            $(".signon-button").removeAttr("disabled");
+            console.log(this.responseText);
+            let responseArray = JSON.parse(this.responseText);
+            let result = responseArray['result'];
+            console.log(result);
+            if (result == 'success') {
+                hideAllSnackMessages();
+                $("#signUpModal").modal('hide');
+                showMsgModal("Sign Up Successful!", "Hooray, you have been signed up!<br>Please check your inbox for the activation link.");
+            } else if (result == 'alreadyExists') {
+                hideAllSnackMessages();
+                showSnackMessage("An account with the same email address already exists!", null, {type:'warning',container:'#signUpMessageContainer',autoHide:false,fullWidth:true})
+            }
+            else {
+                hideAllSnackMessages();
+                showSnackMessage("There was an error during signing up for an account. Try again later.", null, {type:'error',container:'#signUpMessageContainer',autoHide:false,fullWidth:true})
+            }
+		}
+    };
+	xhttp.send($("#signUpForm").serialize());
 }
 
 $(document).ready(function () {
@@ -169,6 +214,7 @@ function validateEmail(event) {
 
 	xhttp.onreadystatechange = function () {
 		if (this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText);
             $(".signon-button-text").show();
             $(".signon-loader-container").hide();
             $(".signon-button").removeAttr("disabled");
@@ -177,6 +223,9 @@ function validateEmail(event) {
             if (result == 'valid') {
                 console.log("Email address validation successful!");
                 showPasswordForm();
+            } else if (result == 'notactive') {
+                console.log("Account not activated!");
+                showSnackMessage("The account is not yet activated!", null, {type:'error',container:'#signOnMessageContainer',autoHide:false,fullWidth:true})
             } else {
                 console.log("Email address validation failed!");
                 showSnackMessage("An account with given e-mail ID doesn't exist!", null, {type:'error',container:'#signOnMessageContainer',autoHide:false,fullWidth:true})
@@ -219,4 +268,10 @@ function validatePassword(event) {
 		}
     };
     xhttp.send("validate=password&emailID=" + email_id + "&password=" + password + "&rememberMe=" + remember_me);
+}
+
+function showMsgModal(title, msg) {
+    msgTitle.innerHTML = title;
+    msgText.innerHTML = msg;
+    $("#msgModal").modal({keyboard: false,backdrop: 'static'});
 }

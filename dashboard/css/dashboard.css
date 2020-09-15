@@ -372,6 +372,7 @@ label {
 	color: white;
 	background-color: #08a8b0;
 	border-color: #08a8b0;
+	line-height: 1.5 !important;
 }
 
 .btn-passport:hover {
@@ -392,6 +393,7 @@ label {
 	color: white;
 	background-color: #545454;
 	border-color: #545454;
+	line-height: 1.5 !important;
 }
 
 .btn-passport-gray:hover {
