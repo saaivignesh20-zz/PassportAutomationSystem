@@ -495,6 +495,13 @@ main[role=main]::after {
 	padding: 10px;
 }
 
+.index-reset-box {
+	height: auto;
+	width: 30vw;
+	display: block;
+	padding: 10px;
+}
+
 .page-container {
 	min-height: calc(100vh - 150px);
   	display: flex;
@@ -850,7 +857,7 @@ form {
 }
 
 .signon-loader {
-	border: 4px solid teal;
+	border: 4px solid rgba(255, 255, 255, 0.3);
 	border-radius: 50%;
 	border-top: 4px solid white;
 	width: 24px;

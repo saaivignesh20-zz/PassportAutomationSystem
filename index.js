@@ -53,68 +53,132 @@ function isValidPhoneNumber(evt) {
 function showConfirmation(event) {
     event.preventDefault();
     button = emailConfirmationButton;
-
-    // recognize email provider
-    // onclick="window.open('https://www.gmail.com')
-
-    emailID = resetEmail.value;
-    emailProvider = emailID.split("@")[1];
-
-    emailProviders = {
-        "gmail.com" : {
-            text : "Go to Gmail",
-            link : "https://www.gmail.com"
-        },
-        "office.com" : {
-            text : "Go to Office 365",
-            link : "https://www.office.com"
-        },
-        "hotmail.com" : {
-            text : "Go to Outlook",
-            link : "https://outlook.live.com"
-        },
-        "outlook.com" : {
-            text : "Go to Outlook",
-            link : "https://outlook.live.com"
-        },
-        "live.com" : {
-            text : "Go to Outlook",
-            link : "https://outlook.live.com"
-        },
-        "yahoo.com" : {
-            text : "Go to Yahoo! Mail",
-            link : "https://login.yahoo.com"
-        },
-        "yahoo.co.in" : {
-            text : "Go to Yahoo! Mail",
-            link : "https://login.yahoo.com"
-        },
-        "rocketmail.com" : {
-            text : "Go to Yahoo! Mail",
-            link : "https://login.yahoo.com"
-        },
-        "zohomail.in" : {
-            text : "Go to Zoho Mail",
-            link : "https://www.zoho.com/mail/login.html"
-        }
-    }
-
-    emailProviderInfo = emailProviders[emailProvider];
     
-    if (!emailProviderInfo) {
+    try {
+        $(".signon-button").attr("disabled", true);
+        $(".signon-button-text").hide();
+        $(".signon-loader-container").css('display', 'inline-block');
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("POST", "/pas_backend/forgotPassword.php", true);
+        xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhttp.setRequestHeader('Cache-Control', 'no-cache');
+
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                $(".signon-button-text").show();
+                $(".signon-loader-container").hide();
+                $(".signon-button").removeAttr("disabled");
+                console.log(this.responseText);
+                let responseArray = JSON.parse(this.responseText);
+                let result = responseArray['result'];
+                console.log(result);
+                if (result == 'success') {
+                    hideAllSnackMessages();
+                    // recognize email provider
+                    // onclick="window.open('https://www.gmail.com')
+
+                    emailID = resetEmail.value;
+                    emailProvider = emailID.split("@")[1];
+
+                    emailProviders = {
+                        "gmail.com" : {
+                            text : "Go to Gmail",
+                            link : "https://www.gmail.com"
+                        },
+                        "office.com" : {
+                            text : "Go to Office 365",
+                            link : "https://www.office.com"
+                        },
+                        "hotmail.com" : {
+                            text : "Go to Outlook",
+                            link : "https://outlook.live.com"
+                        },
+                        "outlook.com" : {
+                            text : "Go to Outlook",
+                            link : "https://outlook.live.com"
+                        },
+                        "live.com" : {
+                            text : "Go to Outlook",
+                            link : "https://outlook.live.com"
+                        },
+                        "yahoo.com" : {
+                            text : "Go to Yahoo! Mail",
+                            link : "https://login.yahoo.com"
+                        },
+                        "yahoo.co.in" : {
+                            text : "Go to Yahoo! Mail",
+                            link : "https://login.yahoo.com"
+                        },
+                        "rocketmail.com" : {
+                            text : "Go to Yahoo! Mail",
+                            link : "https://login.yahoo.com"
+                        },
+                        "zohomail.in" : {
+                            text : "Go to Zoho Mail",
+                            link : "https://www.zoho.com/mail/login.html"
+                        }
+                    }
+
+                    emailProviderInfo = emailProviders[emailProvider];
+                    
+                    if (!emailProviderInfo) {
+                        button.innerHTML = "Close";
+                        button.onclick = function() {
+                            $("#forgotPasswordModal").modal("hide");
+                        };
+                    } else {
+                        button.innerHTML = emailProviderInfo.text;
+                        button.onclick = function() {
+                            window.location.href = emailProviderInfo.link;
+                        };
+                    }
+                    emailConfirmationTextValue.innerHTML = "Check your email for a link to reset your password. If it doesn’t appear within a few minutes, check your spam folder.";
+                    $("#resetPasswordForm").fadeOut();
+                    $("#resetPasswordButton").fadeOut(function() { $("#emailConfirmationButton").fadeIn(); $("#emailConfirmationText").fadeIn(); });
+                } else if (result == 'notexist') {
+                    emailConfirmationTextValue.innerHTML = "An account with the given email address does not exist. Please ensure that you've provided the email correctly.";
+                    button.innerHTML = "Close";
+                    button.onclick = function() {
+                        $("#forgotPasswordModal").modal("hide");
+                    };
+                    $("#resetPasswordForm").fadeOut();
+                    $("#resetPasswordButton").fadeOut(function() { $("#emailConfirmationButton").fadeIn(); $("#emailConfirmationText").fadeIn(); });
+                }
+                else {
+                    emailConfirmationTextValue.innerHTML = "There was an unexpected error during the process. Please try again later.";
+                    button.innerHTML = "Close";
+                    button.onclick = function() {
+                        $("#forgotPasswordModal").modal("hide");
+                    };
+                    $("#resetPasswordForm").fadeOut();
+                    $("#resetPasswordButton").fadeOut(function() { $("#emailConfirmationButton").fadeIn(); $("#emailConfirmationText").fadeIn(); });
+                }
+            } else if (this.status == 404) {
+                $(".signon-button-text").show();
+                $(".signon-loader-container").hide();
+                $(".signon-button").removeAttr("disabled");
+                emailConfirmationTextValue.innerHTML = "There was an unexpected error during the process. Please try again later.";
+                button.innerHTML = "Close";
+                button.onclick = function() {
+                    $("#forgotPasswordModal").modal("hide");
+                };
+                $("#resetPasswordForm").fadeOut();
+                $("#resetPasswordButton").fadeOut(function() { $("#emailConfirmationButton").fadeIn(); $("#emailConfirmationText").fadeIn(); });
+            }
+        };
+        xhttp.send("emailID=" + resetEmail.value);
+    } catch {
+        $(".signon-button-text").show();
+        $(".signon-loader-container").hide();
+        $(".signon-button").removeAttr("disabled");
+        emailConfirmationTextValue.innerHTML = "There was an unexpected error during the process. Please try again later.";
         button.innerHTML = "Close";
         button.onclick = function() {
             $("#forgotPasswordModal").modal("hide");
         };
-    } else {
-        button.innerHTML = emailProviderInfo.text;
-        button.onclick = function() {
-            window.location.href = emailProviderInfo.link;
-        };
+        $("#resetPasswordForm").fadeOut();
+        $("#resetPasswordButton").fadeOut(function() { $("#emailConfirmationButton").fadeIn(); $("#emailConfirmationText").fadeIn(); });
     }
-
-    $("#resetPasswordForm").fadeOut();
-    $("#resetPasswordButton").fadeOut(function() { $("#emailConfirmationButton").fadeIn(); $("#emailConfirmationText").fadeIn(); });
 }
 
 function resetForgotPasswordConfirmation() {
@@ -144,7 +208,7 @@ function onSignUp(event) {
     $(".signon-button-text").hide();
     $(".signon-loader-container").css('display', 'inline-block');
     var xhttp = new XMLHttpRequest();
-    xhttp.open("POST", "/pas_backend/signup.php", true);
+    xhttp.open("POST", "/pas_backend/signUp.php", true);
     xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhttp.setRequestHeader('Cache-Control', 'no-cache');
 
@@ -273,5 +337,15 @@ function validatePassword(event) {
 function showMsgModal(title, msg) {
     msgTitle.innerHTML = title;
     msgText.innerHTML = msg;
+    $("#msgModal").modal({keyboard: false,backdrop: 'static'});
+}
+
+function showFatalErrorMsg(title, msg) {
+    msgTitle.innerHTML = title;
+    msgText.innerHTML = msg;
+    msgButton.onclick = function() {
+        window.location.href = "../";
+    }
+    setCookie('pas_auth', '', 0);
     $("#msgModal").modal({keyboard: false,backdrop: 'static'});
 }

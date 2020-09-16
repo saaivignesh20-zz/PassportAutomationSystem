@@ -224,16 +224,18 @@
                                     required autofocus />
                             </div>
                             <div class="row" id="emailConfirmationText" style="display: none;">
-                                <div class="col">
-                                    Check your email for a link to reset your password. If it doesn’t appear within a
-                                    few
-                                    minutes, check your spam folder.
+                                <div class="col" id="emailConfirmationTextValue">
+                                    
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer text-center">
-                            <button type="submit" class="btn btn-passport-gray" id="resetPasswordButton">Reset
-                                Password</button>
+                            <button type="submit" class="btn btn-passport-gray signon-button" id="resetPasswordButton">
+                                <span class="signon-button-text">Reset Password</span>
+                                <div class="signon-loader-container">
+                                    <div class="signon-loader"></div>
+                                </div>
+                            </button>
                             <button type="button" class="btn btn-passport btn-block" id="emailConfirmationButton"
                                 style="display: none;" data-dismiss="modal">Go to [Email]</button>
                         </div>
