@@ -18,10 +18,12 @@ $(document).ready(function () {
             handleQuery();
         }
     });
+
     $("a > span").on("click", function(event) {
         event.preventDefault();
         event.target.parentElement.click();
     })
+    
     $(".navbar-brand").addClass("sticky-top");
     $(".navbar-brand").fadeIn();
     handleQuery();
@@ -66,6 +68,20 @@ function loadPage(url) {
                     changeActiveLinkState();
                 });
             });
+            getUserApplicationStatus(function(status) {
+                switch (status) {
+                    case 'pending':
+                        $("#applyBtn").parent().css("display", "none");
+                        $("#checkStatusBtn").parent().css("display", "initial");
+                        $("#renewBtn").parent().css("display", "none");
+                    break;
+                    case false:
+                        $("#renewBtn").parent().css("display", "none");
+                        $("#checkStatusBtn").parent().css("display", "none");
+                        $("#applyBtn").parent().css("display", "initial");
+                    break;
+                }
+            });
         });
     });
 }
@@ -79,7 +95,7 @@ function updateTime() {
 	date = new Date()
 
 	dd = date.getDate()
-	dd < 10 ? dd = "0" + dd : dd = "0" + dd;
+	dd < 10 ? dd = "0" + dd : dd =  dd;
 	MM = date.getMonth();
 	// add leading zero
 	MM < 10 ? MM = "0" + MM : MM = MM;
@@ -130,6 +146,24 @@ function getUserScreenName(callback) {
     xhttp.send("info=screenName");
 }
 
+function getUserApplicationStatus(callback) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("POST", "/pas_backend/getDetails.php", true);
+    xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhttp.setRequestHeader('Cache-Control', 'no-cache');
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText);
+            let responseArray = JSON.parse(this.responseText);
+            let result = responseArray['result'];
+            if (result != undefined) {
+                callback(result);
+            }
+        }
+    };
+    xhttp.send("info=applicationStatus");
+}
+
 function showFatalErrorMsg(title, msg) {
     msgTitle.innerHTML = title;
     msgText.innerHTML = msg;
@@ -139,3 +173,45 @@ function showFatalErrorMsg(title, msg) {
     setCookie('pas_auth', '', 0);
     $("#msgModal").modal({keyboard: false,backdrop: 'static'});
 }
+
+function showErrorMsg(title, msg) {
+    msgTitle.innerHTML = title;
+    msgText.innerHTML = msg;
+    $("#msgModal").modal({keyboard: false,backdrop: 'static'});
+}
+
+function showMsgModal(title, msg) {
+    msgTitle.innerHTML = title;
+    msgText.innerHTML = msg;
+    $("#msgModal").modal({keyboard: false,backdrop: 'static'});
+}
+
+function showConfirmationDialog(title, msg, confirmAction, cancelAction) {
+    confirmTitle.innerHTML = title;
+    confirmText.innerHTML = msg;
+    confirmButton.onclick = confirmAction;
+    cancelButton.onclick = cancelAction;
+    $("#confirmationModal").modal({keyboard: false,backdrop: 'static'});
+}
+
+function isValidPhoneNumber(evt) {
+    evt = (evt) ? evt : window.event;
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    if (charCode == 43 || charCode == 45) {
+        // check if +/- is already there
+        if (charCode == 43 && evt.target.value.indexOf("+") > -1) {
+            return false;
+        }
+        if (charCode == 45 && evt.target.value.indexOf("-") > -1) {
+            return false;
+        }
+    } else if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+        return false;
+    }
+    return true;
+}
+
+function goToTop() {
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+  }

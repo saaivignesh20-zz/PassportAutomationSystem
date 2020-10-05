@@ -12,220 +12,244 @@
     </div>
     <div class="panelfont container justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3"
         id="passportApplication">
+        <div id="passportApplicationValidationContainer"></div>
         <form id="passportApplicationForm">
             <div id="applicationStep1">
                 <div class="row">
                     <div class="col-sm">
                         <div class="form-group">
-                            <label for="FullName" class="mandatory">Full Name</label>
-                            <input type="text" class="form-control" id="Full Name" aria-describedby="Full NameHelp">
-                            <p class="text-left">[Enter Both First and Middle name] </p>
+                            <label for="fullName" class="mandatory">Full Name:</label>
+                            <input type="text" class="form-control" id="fullName" name="fullName" aria-describedby="Full NameHelp" placeholder="Enter Both First and Middle Name">
                         </div>
-                    
+
                         <div class="form-group">
-                            <label for="SurName" class="mandatory">Surname</label>
-                                <input type="text" class="form-control" id="Surname" aria-describedby="SurnameHelp">
-                        </div>
-                        <div class="form-group">
-                            <label for="centre" class="mandatory">Gender</label>
-                                <label class="radio-container">Male</a>
-                                    <input type="radio" id="centre" name="centre" required />
-                                    <span class="radiomark"></span>
-                                </label>
-                                <label class="radio-container">Female</a>
-                                    <input type="radio" id="centre" name="centre" required />
-                                    <span class="radiomark"></span>
-                                </label>
-                                <label class="radio-container">Other</a>
-                                    <input type="radio" id="centre" name="centre" required />
-                                    <span class="radiomark"></span>
-                                </label>
+                            <label for="surname" class="mandatory">Surname:</label>
+                            <input type="text" class="form-control" id="surname" name="surname" placeholder="Enter Family Name/Last Name">
                         </div>
                         <div class="form-group">
-                            <label for="FullName" class="mandatory">Date of Birth</label>
-                                <input type="date" class="form-control" id="Full Name" aria-describedby="ph Number">
+                            <label for="gender" class="mandatory">Gender:</label>
+                            <label class="radio-container">Male</a>
+                                <input type="radio" name="gender" value="Male" required />
+                                <span class="radiomark"></span>
+                            </label>
+                            <label class="radio-container">Female</a>
+                                <input type="radio" name="gender" value="Female" required />
+                                <span class="radiomark"></span>
+                            </label>
+                            <label class="radio-container">Other</a>
+                                <input type="radio" name="gender" value="Other" required />
+                                <span class="radiomark"></span>
+                            </label>
                         </div>
                         <div class="form-group">
-                            <label for="FullName" class="mandatory">Phone Number</label>
-                                <input type="number" class="form-control" id="Full Name" aria-describedby="ph Number">
+                            <label for="dateOfBirth" class="mandatory">Date of Birth:</label>
+                            <input type="date" class="form-control" id="dateOfBirth" name="dateOfBirth">
                         </div>
                         <div class="form-group">
-                            <label for="FullName" class="mandatory">Email</label>
-                                <input type="email" class="form-control" id="Full Name" aria-describedby="email">
+                            <label for="mobileNumber" class="mandatory">Mobile Number:</label>
+                            <input type="text" class="form-control" id="mobileNumber" onkeypress="return isValidPhoneNumber(event)" maxlength="16" name="mobileNumber">
                         </div>
                         <div class="form-group">
-                            <label for="FullName" class="mandatory">Address</label>
-                                <input type="text" class="form-control" id="Full Name" aria-describedby="Address">
+                            <label for="phoneNumber" class="mandatory">Phone Number</label>
+                            <input type="text" class="form-control" id="phoneNumber" onkeypress="return isValidPhoneNumber(event)" maxlength="16" name="phoneNumber">
                         </div>
                         <div class="form-group">
-                            <label class="mandatory " for="inlineFormCustomSelect">State</label>
-                            <select class="custom-select mb-2 mr-sm-2 mb-sm-0" required id="inlineFormCustomSelect">
+                            <label for="email" class="mandatory">Email Address:</label>
+                            <input type="email" class="form-control" id="email" name="email" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="address" class="mandatory">Address:</label>
+                            <input type="text" class="form-control" id="address" name="address">
+                        </div>
+                        <div class="form-group">
+                            <label class="mandatory" for="state">State</label>
+                            <select class="custom-select mb-2 mr-sm-2 mb-sm-0" required id="state" name="state">
                                 <option value="">Choose...</option>
-                                <option value="1">Andaman And Nicobar</option>
-                                <option value="2">Andhra Pradesh</option>
-                                <option value="3">Arunachal Pradesh</option>
-                                <option value="4">Assam</option>
-                                <option value="5">Bihar</option>
-                                <option value="6">Chandigarh</option>
-                                <option value="7">Chhattisgarh</option>
-                                <option value="8">Dadra And Nagar Haveli</option>
-                                <option value="9">Daman And Diu</option>
-                                <option value="10">Delhi</option>
-                                <option value="11">Goa</option>
-                                <option value="12">Gujarat</option>
-                                <option value="13">Haryana</option>
-                                <option value="14">Himachal Pradesh</option>
-                                <option value="15">Jammu And Kashmir</option>
-                                <option value="16">Jharkhand</option>
-                                <option value="17">Karnataka</option>
-                                <option value="18">Kerala</option>
-                                <option value="19">Ladakh</option>
-                                <option value="20">Lakshadweep</option>
-                                <option value="21">Madhya Pradesh</option>
-                                <option value="22">Maharashtra</option>
-                                <option value="23">Manipur</option>
-                                <option value="24">Meghalaya</option>
-                                <option value="25">Mizoram</option>
-                                <option value="26">Nagaland</option>
-                                <option value="27">Odisha</option>
-                                <option value="28">Puducherry</option>
-                                <option value="29">Punjab</option>
-                                <option value="30">Rajasthan</option>
-                                <option value="31">Sikkim</option>
-                                <option value="32">Tamil Nadu</option>
-                                <option value="33">Telangana</option>
-                                <option value="34">Tripura</option>
-                                <option value="35">Uttar Pradesh</option>
-                                <option value="36">Uttarakhand</option>
-                                <option value="37">West Bengal</option>
+                                <option value="Andaman And Nicobar">Andaman And Nicobar</option>
+                                <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                                <option value="Assam">Assam</option>
+                                <option value="Bihar">Bihar</option>
+                                <option value="Chandigarh">Chandigarh</option>
+                                <option value="Chhattisgarh">Chhattisgarh</option>
+                                <option value="Dadra And Nagar Haveli">Dadra And Nagar Haveli</option>
+                                <option value="Daman And Diu">Daman And Diu</option>
+                                <option value="Delhi">Delhi</option>
+                                <option value="Goa">Goa</option>
+                                <option value="Gujarat">Gujarat</option>
+                                <option value="Haryana">Haryana</option>
+                                <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                <option value="Jammu And Kashmir">Jammu And Kashmir</option>
+                                <option value="Jharkhand">Jharkhand</option>
+                                <option value="Karnataka">Karnataka</option>
+                                <option value="Kerala">Kerala</option>
+                                <option value="Ladakh">Ladakh</option>
+                                <option value="Lakshadweep">Lakshadweep</option>
+                                <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                <option value="Maharashtra">Maharashtra</option>
+                                <option value="Manipur">Manipur</option>
+                                <option value="Meghalaya">Meghalaya</option>
+                                <option value="Mizoram">Mizoram</option>
+                                <option value="Nagaland">Nagaland</option>
+                                <option value="Odisha">Odisha</option>
+                                <option value="Puducherry">Puducherry</option>
+                                <option value="Punjab">Punjab</option>
+                                <option value="Rajasthan">Rajasthan</option>
+                                <option value="Sikkim">Sikkim</option>
+                                <option value="Tamil Nadu">Tamil Nadu</option>
+                                <option value="Telangana">Telangana</option>
+                                <option value="Tripura">Tripura</option>
+                                <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                <option value="Uttarakhand">Uttarakhand</option>
+                                <option value="West Bengal">West Bengal</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label class="mandatory " for="inlineFormCustomSelect">Citizenship of India By</label>
-                            <select class="custom-select mb-2 mr-sm-2 mb-sm-0" required id="inlineFormCustomSelect">
+                            <label class="mandatory" for="citizenship">Citizenship of India by</label>
+                            <select class="custom-select mb-2 mr-sm-2 mb-sm-0" required id="citizenship" name="citizenship">
                                 <option selected value="">Choose...</option>
-                                <option value="1">Birth</option>
-                                <option value="2">Registration</option>
-                                <option value="3">Descent</option>
+                                <option value="Birth">Birth</option>
+                                <option value="Registration">Registration</option>
+                                <option value="Descent">Descent</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="FullName" >PAN(If available)</label>
-                                <input type="number" class="form-control" id="Full Name" aria-describedby="Address">
+                            <label for="panNumber">PAN Number (if available)</label>
+                            <input type="text" class="form-control" id="panNumber" name="panNumber">
                         </div>
                         <div class="form-group">
-                            <label for="FullName" >Voter ID(If available)</label>
-                                <input type="number" class="form-control" id="Full Name" aria-describedby="Address">
+                            <label for="voterID">Voter ID (if available)</label>
+                            <input type="number" class="form-control" id="voterID" name="voterID">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" style=text-align:center>
+                    <div class="col-sm">
+                        <div class="form-group">
+                            <button type="button" class="btn btn-passport-gray form-control" onclick="goToStepTwo()">
+                                Next &#187;</button>
+                        </div>
+                    </div>
+                    <div class="col-sm"></div>
+                    <div class="col-sm"></div>
+                    <div class="col-sm"></div>
+                </div>
+            </div>
+
+
+            <div id="applicationStep2" style="display: none;">
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="form-group">
+                            <label class="mandatory" for="rpoState">State</label>
+                            <select class="custom-select mb-2 mr-sm-2 mb-sm-0" required id="rpoState" name="rpoState">
+                                <option value="">Choose...</option>
+                                <option value="Andaman And Nicobar">Andaman And Nicobar</option>
+                                <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                                <option value="Assam">Assam</option>
+                                <option value="Bihar">Bihar</option>
+                                <option value="Chandigarh">Chandigarh</option>
+                                <option value="Chhattisgarh">Chhattisgarh</option>
+                                <option value="Dadra And Nagar Haveli">Dadra And Nagar Haveli</option>
+                                <option value="Daman And Diu">Daman And Diu</option>
+                                <option value="Delhi">Delhi</option>
+                                <option value="Goa">Goa</option>
+                                <option value="Gujarat">Gujarat</option>
+                                <option value="Haryana">Haryana</option>
+                                <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                <option value="Jammu And Kashmir">Jammu And Kashmir</option>
+                                <option value="Jharkhand">Jharkhand</option>
+                                <option value="Karnataka">Karnataka</option>
+                                <option value="Kerala">Kerala</option>
+                                <option value="Ladakh">Ladakh</option>
+                                <option value="Lakshadweep">Lakshadweep</option>
+                                <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                <option value="Maharashtra">Maharashtra</option>
+                                <option value="Manipur">Manipur</option>
+                                <option value="Meghalaya">Meghalaya</option>
+                                <option value="Mizoram">Mizoram</option>
+                                <option value="Nagaland">Nagaland</option>
+                                <option value="Odisha">Odisha</option>
+                                <option value="Puducherry">Puducherry</option>
+                                <option value="Punjab">Punjab</option>
+                                <option value="Rajasthan">Rajasthan</option>
+                                <option value="Sikkim">Sikkim</option>
+                                <option value="Tamil Nadu">Tamil Nadu</option>
+                                <option value="Telangana">Telangana</option>
+                                <option value="Tripura">Tripura</option>
+                                <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                <option value="Uttarakhand">Uttarakhand</option>
+                                <option value="West Bengal">West Bengal</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="mandatory" for="rpoDistrict">District</label>
+                            <select class="custom-select mb-2 mr-sm-2 mb-sm-0" required id="rpoDistrict" name="rpoDistrict">
+                                <option selected value="">Choose...</option>
+                                <option value="District1">District1</option>
+                                <option value="District2">District2</option>
+                                <option value="District3">District3</option>
+                                <option value="District4">District4</option>
+                                <option value="District5">District5</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="centre" class="mandatory">Register to apply at:</label>
+                            <label class="radio-container">CPV Delhi</a>
+                                <input type="radio" name="rpoCentre" value="CPV Delhi" required />
+                                <span class="radiomark"></span>
+                            </label>
+                            <label class="radio-container">Passport Office</a>
+                                <input type="radio" name="rpoCentre" value="Passport Office" required />
+                                <span class="radiomark"></span>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="centre" class="mandatory">Passport Type:</label>
+                            <label class="radio-container">Normal</a>
+                                <input type="radio" name="passportType" value="Normal" required />
+                                <span class="radiomark"></span>
+                            </label>
+                            <label class="radio-container">Tatkal</a>
+                                <input type="radio" name="passportType" value="Tatkal" required />
+                                <span class="radiomark"></span>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="centre" class="mandatory">Pages in Passport Booklet</label>
+                            <label class="radio-container">36 Pages</a>
+                                <input type="radio" name="passportBookletPages" value="36" required />
+                                <span class="radiomark"></span>
+                            </label>
+                            <label class="radio-container">60 Pages</a>
+                                <input type="radio" name="passportBookletPages" value="60" required />
+                                <span class="radiomark"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" style="text-align:center">
+                    <div class="col-sm">
+                        <div class="form-group">
+                            <button type="button" class="btn btn-passport-gray form-control" onclick="goToStepOne()">
+                                &#171; Go Back</button>
+                        </div>
+                    </div>
+                    <div class="col-sm"></div>
+                    <div class="col-sm">
+                        <div class="form-group">
+                            <button type="button" class="btn btn-passport form-control" onclick="submitApplication()">
+                                Submit Application
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            
-<div id="applicationStep2" style="display:none;"  >
-    <div class="row">
-        <div class="col-sm">
-            <div class="form-group">
-                <label class="mandatory " for="inlineFormCustomSelect">State</label>
-                <select class="custom-select mb-2 mr-sm-2 mb-sm-0" required id="inlineFormCustomSelect">
-                    <option value="">Choose...</option>
-                    <option value="1">Andaman And Nicobar</option>
-                    <option value="2">Andhra Pradesh</option>
-                    <option value="3">Arunachal Pradesh</option>
-                    <option value="4">Assam</option>
-                    <option value="5">Bihar</option>
-                    <option value="6">Chandigarh</option>
-                    <option value="7">Chhattisgarh</option>
-                    <option value="8">Dadra And Nagar Haveli</option>
-                    <option value="9">Daman And Diu</option>
-                    <option value="10">Delhi</option>
-                    <option value="11">Goa</option>
-                    <option value="12">Gujarat</option>
-                    <option value="13">Haryana</option>
-                    <option value="14">Himachal Pradesh</option>
-                    <option value="15">Jammu And Kashmir</option>
-                    <option value="16">Jharkhand</option>
-                    <option value="17">Karnataka</option>
-                    <option value="18">Kerala</option>
-                    <option value="19">Ladakh</option>
-                    <option value="20">Lakshadweep</option>
-                    <option value="21">Madhya Pradesh</option>
-                    <option value="22">Maharashtra</option>
-                    <option value="23">Manipur</option>
-                    <option value="24">Meghalaya</option>
-                    <option value="25">Mizoram</option>
-                    <option value="26">Nagaland</option>
-                    <option value="27">Odisha</option>
-                    <option value="28">Puducherry</option>
-                    <option value="29">Punjab</option>
-                    <option value="30">Rajasthan</option>
-                    <option value="31">Sikkim</option>
-                    <option value="32">Tamil Nadu</option>
-                    <option value="33">Telangana</option>
-                    <option value="34">Tripura</option>
-                    <option value="35">Uttar Pradesh</option>
-                    <option value="36">Uttarakhand</option>
-                    <option value="37">West Bengal</option>
-                </select>
-            </div>
-        
-            <div class="form-group">
-                <label class="mandatory " for="inlineFormCustomSelect">District</label>
-                <select class="custom-select mb-2 mr-sm-2 mb-sm-0" required id="inlineFormCustomSelect">
-                    <option selected value="">Choose...</option>
-                    <option value="1">District1</option>
-                    <option value="2">District2</option>
-                    <option value="3">District3</option>
-                    <option value="4">District4</option>
-                    <option value="5">District5</option>
-                </select>
-            </div>
-       
-            <div class="form-group">
-                <label for="centre" class="mandatory">Register to apply at:</label>
-                <label class="radio-container">CPV Delhi</a>
-                    <input type="radio" id="centre" name="centre" required />
-                    <span class="radiomark"></span>
-                </label>
-                <label class="radio-container">Passport Office</a>
-                    <input type="radio" id="centre" name="centre" required />
-                    <span class="radiomark"></span>
-                </label>
-            </div>
-            <div class="form-group">
-                <label class="mandatory " for="inlineFormCustomSelect">Passport Office</label>
-                <select class="custom-select mb-2 mr-sm-2 mb-sm-0" required id="inlineFormCustomSelect">
-                    <option selected value="">Choose...</option>
-                    <option value="1">Office A</option>
-                    <option value="2">Office B</option>
-                    <option value="3">Office C</option>
-                    <option value="4">Office D</option>
-                    <option value="5">Office E</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label class="mandatory " for="inlineFormCustomSelect">Passport type</label>
-                <select class="custom-select mb-2 mr-sm-2 mb-sm-0" required id="inlineFormCustomSelect">
-                    <option selected value="">Choose...</option>
-                    <option value="1">Normal</option>
-                    <option value="2">Tatkal</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label class="mandatory " for="inlineFormCustomSelect">Type of passport booklet</label>
-                <select class="custom-select mb-2 mr-sm-2 mb-sm-0" required id="inlineFormCustomSelect">
-                    <option selected value="">Choose...</option>
-                    <option value="1">36 Pages</option>
-                    <option value="2">60 Pages</option>
-                </select>
-            </div>
-        
-        </div>
-    </div>
-</div>
-                        
-
-            
         </form>
     </div>
 </body>

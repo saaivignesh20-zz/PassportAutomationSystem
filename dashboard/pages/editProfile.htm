@@ -12,27 +12,28 @@
     </div>
     <div class="panelfont container justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3"
         id="editProfile">
-        <form id="editprofileForm">
+        <div id="updateProfileValidationContainer"></div>
+        <form id="editProfileForm" onsubmit="updateProfile(event);">
             <div id="">
                 <div class="row">
                     <div class="col-sm">
                         <div class="form-group">
                             <label for="firstName">First Name:</label>
-                            <input type="text" class="form-control" id="firstName" name="firstName" maxlength="64"
+                            <input type="text" class="form-control" id="firstName" maxlength="64"
                                 required readonly />
                         </div>
                     </div>
                     <div class="col-sm">
                         <div class="form-group">
                             <label for="middleName">Middle Name:</label>
-                            <input type="text" class="form-control" id="middleName" name="middleName" maxlength="64" 
+                            <input type="text" class="form-control" id="middleName" maxlength="64" 
                             readonly />
                         </div>
                     </div>
                     <div class="col-sm">
                         <div class="form-group">
                             <label for="lastName">Last Name:</label>
-                            <input type="text" class="form-control" id="lastName" name="lastName" maxlength="64"
+                            <input type="text" class="form-control" id="lastName" maxlength="64"
                                 required readonly />
                         </div>
                     </div>
@@ -57,8 +58,12 @@
                     <div class="col-sm"></div>
                     <div class="col-sm">
                         <div class="form-group">
-                            <button type="button" class="btn btn-passport form-control" onclick="alert('Details Updated.')">Update
-                                Profile</button>
+                            <button type="submit" class="btn btn-passport form-control signon-button">
+                                <span class="signon-button-text">Update Profile</span>
+                                <div class="signon-loader-container">
+                                    <div class="signon-loader"></div>
+                                </div>
+                            </button>
                         </div>
                     </div>
                     <div class="col-sm"></div>
@@ -73,7 +78,8 @@
     </div>
     <div class="panelfont container justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3"
         id="changePassword">
-        <form id=changePassword>
+        <div id="changePasswordValidationContainer"></div>
+        <form id="changePassword" onsubmit="updatePassword(event)">
             <div class="row">
                 <div class="col-sm">
                     <div class="form-group">
@@ -86,19 +92,19 @@
                 </div>
                 <div class="col-sm">
                     <div class="form-group">
-                        <label for="confirmPassword" class="mandatory">Confirm Password:</label>
-                        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
+                        <label for="newPassword" class="mandatory">New Password:</label>
+                        <input type="password" class="form-control" id="newPassword" name="newPassword"
                             minlength="8" maxlength="64" required />
-                        <span title="View/Hide Password" toggle="#password"
+                        <span title="View/Hide Password" toggle="#newPassword"
                             class="fa fa-fw fa-eye-slash field-icon toggle-password"></span>
                     </div>
                 </div>
                 <div class="col-sm">
                     <div class="form-group">
-                        <label for="newPassword" class="mandatory">New Password:</label>
+                        <label for="confirmPassword" class="mandatory">Confirm Password:</label>
                         <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
                             minlength="8" maxlength="64" required />
-                        <span title="View/Hide Password" toggle="#password"
+                        <span title="View/Hide Password" toggle="#confirmPassword"
                             class="fa fa-fw fa-eye-slash field-icon toggle-password"></span>
                     </div>
                 </div>
@@ -108,8 +114,12 @@
                 <div class="col-sm"></div>
                 <div class="col-sm">
                     <div class="form-group">
-                        <button type="button" class="btn btn-passport form-control" onclick="alert('Password Updated.')">
-                            Change Password</button>
+                        <button type="submit" class="btn btn-passport form-control signon-button">
+                            <span class="signon-button-text">Change Password</span>
+                            <div class="signon-loader-container">
+                                <div class="signon-loader"></div>
+                            </div>
+                        </button>
                     </div>
                 </div>
                 <div class="col-sm"></div>

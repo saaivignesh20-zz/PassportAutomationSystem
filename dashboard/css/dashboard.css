@@ -83,7 +83,7 @@ body {
 	}
 }
 
-@media (min-width: 1880px) {
+@media (min-width: 1980px) {
 	main[role=main] {
 		min-width: calc(100vw - 317px);	
 	}
@@ -415,6 +415,13 @@ label {
 	box-shadow: 0 0 0 0.2rem rgba(0, 128, 128, 0.3) !important;
 }
 
+.form-control:focus.btn-passport-gray {
+	color: #fff;
+	background-color: #545454 !important;
+	border-color: #545454 !important;
+	box-shadow: 0 0 0 0.2rem rgba(84, 84, 84, 0.3) !important;
+}
+
 .custom-select:focus {
 	border-color: #08a8b0 !important;
 	box-shadow: 0 0 0 0.2rem rgba(0, 128, 128, 0.3) !important;
@@ -451,7 +458,7 @@ main[role=main]::after {
 	content: "";
 	background: url(../img/bg.jpg);
 	background-attachment: fixed;
-	opacity: 0.2;
+	opacity: 0.1;
 	top: 0;
 	left: 0;
 	bottom: 0;

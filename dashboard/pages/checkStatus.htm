@@ -1,43 +1,26 @@
-<!DOCTYPE HTML>
-<html>
-
-<head>
-
-</head>
-
-<body>
-    <div
-        class="panelfont justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <span id="greetings">Check Status</span>
-    </div>
-    <div>
-    <table class="table">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col">Application No</th>
-            <th scope="col">Applicant Name</th>
-            <th scope="col">Email Id</th>
-            <th scope="col">Mobile Number</th>
-            <th scope="col">STATUS</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">111789</th>
-            <td>Girishkumar</td>
-            <td>ravigirish2000@gmail.com</td>
-            <td>9878675452</td>
-            <td><button type="button" class="btn btn-outline-dark">Under Police Verfication</button></td>
-          </tr>
-        </tbody>  
-    </table>
-
-
-    
-            
-    
-</body>
-
-<script src="js/editProfile.js"></script>
-
-</html>
+<div class="panelfont justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+  <span id="greetings">Check Status</span>
+</div>
+<div>
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Application No</th>
+        <th scope="col">Applicant Name</th>
+        <th scope="col">Email Id</th>
+        <th scope="col">Mobile Number</th>
+        <th scope="col">STATUS</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td id="applicationNumber"><b>-</b></th>
+        <td id="applicantName">-</td>
+        <td id="applicantEmailID">-</td>
+        <td id="applicantMobileNumber">-</td>
+        <td><button type="button" class="btn btn-outline-dark" disabled id="applicationStatus">-</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<script src="js/checkStatus.js"></script>

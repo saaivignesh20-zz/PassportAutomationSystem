@@ -1,12 +1,19 @@
 .snackmsg {
-    padding: 8px;
-    text-align: center;
+    padding: 8px 16px 8px 16px;
     font-size: 12pt;
     color: white;
     font-weight: bold;
     display: block;
     margin: 8px;
     display: none;
+}
+
+.center-text {
+    text-align: center;
+}
+
+.no-margin {
+    margin: 0 !important;
 }
 
 .snack-fullwidth {

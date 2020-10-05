@@ -2,7 +2,7 @@
     SnackifyMessage - Message Display Script
     This script requires jQuery to run
 */
-var counter = 0;
+var snackcounter = 0;
 function showSnackMessage(message, timeout, options) {
     let optionClasses = "";
     
@@ -11,6 +11,8 @@ function showSnackMessage(message, timeout, options) {
     let fullWidth = options['fullWidth'];
     let showCloseBtn = options['showCloseButton'];
     let autoHide = options['autoHide'];
+    let leftAlign = options['leftAlign'];
+    let noMargin = options['noMargin'];
 
     switch (messageType) {
         case 'info':
@@ -38,33 +40,42 @@ function showSnackMessage(message, timeout, options) {
         showCloseBtn = "";
     }
 
-    optionClasses = messageType + " " + fullWidth;
-        
-    let snackHTML = `<div class="snackmsg ` + optionClasses + `" id="snackmsg` + counter +`">
+    if (leftAlign) {
+        leftAlign = "";
+    } else {
+        leftAlign = "center-text";
+    }
+
+    if (noMargin) {
+        noMargin = "no-margin";
+    } else {
+        noMargin = "";
+    }
+
+    optionClasses = messageType + " " + fullWidth + " " + leftAlign + noMargin;
+    console.log("snack no: " + snackcounter);
+    let snackHTML = `<div class="snackmsg ` + optionClasses + `" id="snackmsg` + snackcounter +`">
                         <span class="snack-text">` + message + `</span>
-                        <button class="snack-close ` + showCloseBtn + `" onclick="hideSnackMessage(` + counter + `)">&times;</button>
+                        <button class="snack-close ` + showCloseBtn + `" onclick="hideSnackMessage(` + snackcounter + `)">&times;</button>
                     </div>`;
 
     $(messageContainer).append(snackHTML);
-    $("#snackmsg" + counter).fadeIn();
+    $("#snackmsg" + snackcounter).fadeIn();
     
     if (autoHide == undefined || autoHide == true) {
-        setTimeout(hideSnackMessage, timeout, counter);
+        setTimeout(hideSnackMessage, timeout, snackcounter);
     }
-    counter++;
+    snackcounter++;
 }
 
-function hideSnackMessage(counter) {
-    $("#snackmsg" + counter).fadeOut(function() {
-        $("#snackmsg" + counter).remove();
+function hideSnackMessage(snackcounter) {
+    $("#snackmsg" + snackcounter).fadeOut(function() {
+        $("#snackmsg" + snackcounter).remove();
     });
 }
 
 function hideAllSnackMessages() {
-    for (i = 0; i <= counter; i++) {
-        $("#snackmsg" + i).fadeOut(function() {
+    for (i = 0; i <= snackcounter; i++) {
             $("#snackmsg" + i).remove();
-        });
     }
-    counter = 0;
 }
