@@ -89,6 +89,7 @@ function loadPage(url) {
                         $("#applyBtn").parent().css("display", "none");
                         $("#checkStatusBtn").parent().css("display", "none");
                         $("#renewBtn").parent().css("display", "none");
+                        getUserPassportNumber();
                     break;
                     case false:
                         $("#renewBtn").parent().css("display", "none");
@@ -97,7 +98,6 @@ function loadPage(url) {
                     break;
                 }
             });
-            getUserPassportNumber();
         });
     });
 }
