@@ -50,7 +50,7 @@
                             <input type="text" class="form-control" id="mobileNumber" onkeypress="return isValidPhoneNumber(event)" maxlength="16" name="mobileNumber">
                         </div>
                         <div class="form-group">
-                            <label for="phoneNumber" class="mandatory">Phone Number</label>
+                            <label for="phoneNumber" class="mandatory">Phone Number:</label>
                             <input type="text" class="form-control" id="phoneNumber" onkeypress="return isValidPhoneNumber(event)" maxlength="16" name="phoneNumber">
                         </div>
                         <div class="form-group">
@@ -62,7 +62,7 @@
                             <input type="text" class="form-control" id="address" name="address">
                         </div>
                         <div class="form-group">
-                            <label class="mandatory" for="state">State</label>
+                            <label class="mandatory" for="state">State:</label>
                             <select class="custom-select mb-2 mr-sm-2 mb-sm-0" required id="state" name="state">
                                 <option value="">Choose...</option>
                                 <option value="Andaman And Nicobar">Andaman And Nicobar</option>
@@ -105,7 +105,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label class="mandatory" for="citizenship">Citizenship of India by</label>
+                            <label class="mandatory" for="citizenship">Citizenship of India by:</label>
                             <select class="custom-select mb-2 mr-sm-2 mb-sm-0" required id="citizenship" name="citizenship">
                                 <option selected value="">Choose...</option>
                                 <option value="Birth">Birth</option>
@@ -114,12 +114,38 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="panNumber">PAN Number (if available)</label>
-                            <input type="text" class="form-control" id="panNumber" name="panNumber">
+                            <label class="mandatory" for="idProofNumber">ID Card Number (PAN/Aadhaar/Driving Licence):</label>
+                            <input type="text" class="form-control" id="idProofNumber" name="idProofNumber" required>
                         </div>
                         <div class="form-group">
-                            <label for="voterID">Voter ID (if available)</label>
-                            <input type="number" class="form-control" id="voterID" name="voterID">
+                            <label for="voterID">Voter ID (if available):</label>
+                            <input type="text" class="form-control" id="voterID" name="voterID">
+                        </div>
+                        <div class="form-group">
+                            <label class="mr-sm-2 mandatory" for="passportPhoto">Passport Size Photo:</label>
+                            <div class="custom-file">
+                              <input type="file" class="custom-file-input" id="passportPhoto" name="passportPhoto" required aria-describedby="passportPhoto">
+                              <label class="custom-file-label" for="passportPhoto">Upload Image (.jpeg/.jpg/.png)</label>
+                            </div>
+                            <label class="mr-sm-2" style="color: red; font-size: 9pt;">Max. File Size: 200KB</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="mr-sm-2 mandatory" for="idProof">ID Proof:</label>
+                            <div class="custom-file">
+                              <input type="file" class="custom-file-input" id="idProof" name="idProof"required
+                                aria-describedby="idProof">
+                              <label class="custom-file-label" for="idProof">Upload Image/PDF (.jpeg/.jpg/.png/.pdf)</label>
+                            </div>
+                            <label class="mr-sm-2" style="color: red; font-size: 9pt;">Max. File Size: 200KB</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="mr-sm-2 mandatory" for="idProof">Address Proof:</label>
+                            <div class="custom-file">
+                              <input type="file" class="custom-file-input" id="addressProof" name="addressProof" required
+                                aria-describedby="addressProof">
+                              <label class="custom-file-label" for="addressProof">Upload Image/PDF (.jpeg/.jpg/.png/.pdf)</label>
+                            </div>
+                            <label class="mr-sm-2" style="color: red; font-size: 9pt;">Max. File Size: 200KB</label>
                         </div>
                     </div>
                 </div>
@@ -142,7 +168,7 @@
                 <div class="row">
                     <div class="col-sm">
                         <div class="form-group">
-                            <label class="mandatory" for="rpoState">State</label>
+                            <label class="mandatory" for="rpoState">RPO State:</label>
                             <select class="custom-select mb-2 mr-sm-2 mb-sm-0" required id="rpoState" name="rpoState">
                                 <option value="">Choose...</option>
                                 <option value="Andaman And Nicobar">Andaman And Nicobar</option>
@@ -186,7 +212,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="mandatory" for="rpoDistrict">District</label>
+                            <label class="mandatory" for="rpoDistrict">RPO District:</label>
                             <select class="custom-select mb-2 mr-sm-2 mb-sm-0" required id="rpoDistrict" name="rpoDistrict">
                                 <option selected value="">Choose...</option>
                                 <option value="District1">District1</option>
@@ -209,7 +235,7 @@
                             </label>
                         </div>
                         <div class="form-group">
-                            <label for="centre" class="mandatory">Passport Type:</label>
+                            <label for="passportType" class="mandatory">Passport Type:</label>
                             <label class="radio-container">Normal</a>
                                 <input type="radio" name="passportType" value="Normal" required />
                                 <span class="radiomark"></span>
@@ -220,7 +246,7 @@
                             </label>
                         </div>
                         <div class="form-group">
-                            <label for="centre" class="mandatory">Pages in Passport Booklet</label>
+                            <label for="passportBookletPages" class="mandatory">Pages in Passport Booklet:</label>
                             <label class="radio-container">36 Pages</a>
                                 <input type="radio" name="passportBookletPages" value="36" required />
                                 <span class="radiomark"></span>

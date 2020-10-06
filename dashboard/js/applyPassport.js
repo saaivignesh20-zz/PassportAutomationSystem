@@ -9,7 +9,7 @@ function getUserProfileDetails() {
     xhttp.open("POST", "/pas_backend/getDetails.php", true);
     xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhttp.setRequestHeader('Cache-Control', 'no-cache');
-    xhttp.onreadystatechange = function () {
+    xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             console.log(this.responseText);
             let responseArray = JSON.parse(this.responseText);
@@ -22,7 +22,7 @@ function getUserProfileDetails() {
             }
         }
     };
-    xhttp.send("info=profileDetails");
+    xhttp.send("role=applicant&info=profileDetails");
 }
 
 function goToStepTwo() {
@@ -55,8 +55,11 @@ function validateStepOne(callback) {
 	var addressValue = $('input[name="address"]').val();
 	var stateValue = $('select[name="state"]').val();
 	var citizenshipValue = $('select[name="citizenship"]').val();
-	var panNumberValue = $('input[name="panNumber"]').val();
+	var idProofNumberValue = $('input[name="idProofNumber"]').val();
 	var voterIDValue = $('input[name="voterID"]').val();
+	var passportPhotoFile = passportPhoto.files[0]; 
+	var idProofFile = idProof.files[0];
+	var addressProofFile = addressProof.files[0];
 
 	var validateMsg = "";
 
@@ -156,13 +159,15 @@ function validateStepOne(callback) {
 		validateMsg += "Citizenship of India by is a required field.<br>"
 	}
 
-	// PAN - optional - check for format if it is provided
-	if (panNumberValue != "") {
-		if (/^[a-zA-Z0-9]+$/.test(panNumberValue) == false) {
+	// ID Proof - check for format
+	if (idProofNumberValue != "") {
+		if (/^[a-zA-Z0-9]+$/.test(idProofNumberValue) == false) {
 			validateMsg += "PAN Number can contain only alphanumeric characters.<br>"
 		} else {
 
 		}
+	} else {
+		validateMsg += "ID Proof Number is a required field.<br>"
 	}
 
 	// Voter ID - optional - check for format if it is provided
@@ -172,6 +177,69 @@ function validateStepOne(callback) {
 		} else {
 			
 		}
+	}
+
+	// Passport Photo Upload
+	if (passportPhotoFile != undefined) {
+		// verify the file type
+		let fileName = passportPhotoFile.name;
+		let fileType = fileName.split(".");
+		fileType = fileType[fileType.length - 1];
+		if (fileType == "jpeg" || fileType == 'jpg' || fileType == 'png') {
+			// verify file size
+			let fileSize = passportPhotoFile.size;
+			if (fileSize <= 204800) {
+
+			} else {
+				validateMsg += "Maximum Size for Passport Size Photo is 200KB.<br>";
+			}
+		} else {
+			validateMsg += "Passport Size Photo must be of JPEG/PNG format.<br>";
+		}
+	} else {
+		validateMsg += "Passport Size Photo is required.<br>";
+	}
+
+	// ID Proof Upload
+	if (idProofFile != undefined) {
+		// verify the file type
+		let fileName = idProofFile.name;
+		let fileType = fileName.split(".");
+		fileType = fileType[fileType.length - 1];
+		if (fileType == "jpeg" || fileType == 'jpg' || fileType == 'png' || fileType == 'pdf') {
+			// verify file size
+			let fileSize = idProofFile.size;
+			if (fileSize <= 204800) {
+
+			} else {
+				validateMsg += "Maximum Size for ID Proof is 200KB.<br>";
+			}
+		} else {
+			validateMsg += "ID Proof must be of JPEG/PNG/PDF format.<br>";
+		}
+	} else {
+		validateMsg += "ID Proof is required.<br>";
+	}
+
+	// Address Proof Upload
+	if (addressProofFile != undefined) {
+		// verify the file type
+		let fileName = addressProofFile.name;
+		let fileType = fileName.split(".");
+		fileType = fileType[fileType.length - 1];
+		if (fileType == "jpeg" || fileType == 'jpg' || fileType == 'png' || fileType == 'pdf') {
+			// verify file size
+			let fileSize = addressProofFile.size;
+			if (fileSize <= 204800) {
+
+			} else {
+				validateMsg += "Maximum Size for Address Proof is 200KB.<br>";
+			}
+		} else {
+			validateMsg += "Address Proof must be of JPEG/PNG/PDF format.<br>";
+		}
+	} else {
+		validateMsg += "Address Proof is required.<br>";
 	}
 
 	if (validateMsg == "") {
@@ -254,7 +322,6 @@ function submitApplication() {
 		
 			var xhttp = new XMLHttpRequest();
 			xhttp.open("POST", "/pas_backend/submitApplication.php", true);
-			xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			xhttp.setRequestHeader('Cache-Control', 'no-cache');
 			xhttp.onreadystatechange = function () {
 				if (this.readyState == 4 && this.status == 200) {
@@ -269,10 +336,10 @@ function submitApplication() {
 					let result = responseArray['result'];
 					if (result != '') {
 						if (result == 'success') {
-							showMsgModal("Submit Application Success!", "The application form has been successfully submitted!");
+							showMsgModal("Submit Application Success", "The application form has been successfully submitted!");
 							msgButton.onclick = function() { $("#homeBtn").click(); };
 						} else {
-							showMsgModal("Submit Application Success!", "The application form has been successfully submitted!");
+							showErrorMsg("Submit Application Error", "There was an unexpected error while submitting the application. Please try again later.");
 							msgButton.onclick = function() { $("#homeBtn").click(); };
 						}
 					} else {
@@ -280,7 +347,10 @@ function submitApplication() {
 					}
 				}
 			};
-			xhttp.send("action=submitApplication&" + $("#passportApplicationForm").serialize());
+			let formData = new FormData(passportApplicationForm);
+			// append action
+			formData.append("action", "submitApplication");
+			xhttp.send(formData);
 		};
 		showConfirmationDialog("Submit Application", "Are you sure you want to submit the application?<br><b>Please make sure that you have verified the application twice before submission.</b><br><br>By submitting the application, you declare that the information provided by you is to the best of your knowledge and any discrepancy in the data would lead to permanent ban on international travel.", confirmCallback, null)
 	});

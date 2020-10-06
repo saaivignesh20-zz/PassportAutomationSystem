@@ -797,7 +797,7 @@ button[type=button]:focus {
 }
 
 .form-control {
-	line-height: 3;
+	/* line-height: 3; */
 }
 
 .form-group>label {

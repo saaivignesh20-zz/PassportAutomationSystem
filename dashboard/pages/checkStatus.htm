@@ -1,3 +1,31 @@
+<style>
+  .modal-full {
+    min-width: 80%;
+  }
+
+  .modal-full .modal-content {
+    min-height: 50vh;
+  }
+
+  .modal-body {
+    padding: 20px 10% 20px 10%;
+  }
+
+  #passportPhoto {
+    width: 100%;
+    height: 100%;
+  }
+
+  #idProof {
+    width: 100%;
+    height: 100%;
+  }
+
+  #addressProof {
+    width: 100%;
+    height: 100%;
+  }
+</style>
 <div class="panelfont justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
   <span id="greetings">Check Status</span>
 </div>
@@ -14,7 +42,7 @@
     </thead>
     <tbody>
       <tr>
-        <td id="applicationNumber"><b>-</b></th>
+        <td><b><a id="applicationNumber" href=""></a></b></th>
         <td id="applicantName">-</td>
         <td id="applicantEmailID">-</td>
         <td id="applicantMobileNumber">-</td>
@@ -22,5 +50,136 @@
       </tr>
     </tbody>
   </table>
+</div>
+
+<div class="modal modal-stack fade" id="viewApplicationModal" tabindex="-1" role="dialog"
+  aria-labelledby="viewApplicationModal">
+  <div class="modal-dialog modal-full modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">View Application</h5>
+        <button type="button" class="close" title="Close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-2">
+            <img id="passportPhoto">
+          </div>
+          <div class="col-sm">
+            <div class="form-group">
+              <label for="fullName">Full Name:</label>
+              <input type="text" class="form-control" id="fullName" name="fullName" aria-describedby="fullName"
+                placeholder="Enter Both First and Middle Name" readonly>
+            </div>
+            <div class="form-group">
+              <label for="gender">Gender:</label>
+              <input type="text" class="form-control" id="gender" name="gender" readonly>
+            </div>
+          </div>
+          <div class="col-sm">
+            <div class="form-group">
+              <label for="surname">Surname:</label>
+              <input type="text" class="form-control" id="surname" name="surname"
+                placeholder="Enter Family Name/Last Name" readonly>
+            </div>
+            <div class="form-group">
+              <label for="dateOfBirth">Date of Birth:</label>
+              <input type="text" class="form-control" id="dateOfBirth" name="dateOfBirth" readonly>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm">
+            <div class="form-group">
+              <label for="mobileNumber">Mobile Number:</label>
+              <input type="text" class="form-control" id="mobileNumber" onkeypress="return isValidPhoneNumber(event)"
+                maxlength="16" name="mobileNumber" readonly>
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address:</label>
+              <input type="email" class="form-control" id="email" name="email" readonly>
+            </div>
+            <div class="form-group">
+              <label for="state">State:</label>
+              <input type="text" class="form-control" id="state" name="state" readonly>
+            </div>
+            <div class="form-group">
+              <label for="idProofNumber">ID Card Number (PAN/Aadhaar/Driving Licence):</label>
+              <input type="text" class="form-control" id="idProofNumber" name="idProofNumber" required readonly>
+            </div>
+          </div>
+          <div class="col-sm">
+            <div class="form-group">
+              <label for="phoneNumber">Phone Number:</label>
+              <input type="text" class="form-control" id="phoneNumber" onkeypress="return isValidPhoneNumber(event)"
+                maxlength="16" name="phoneNumber" readonly>
+            </div>
+            <div class="form-group">
+              <label for="address">Address:</label>
+              <input type="text" class="form-control" id="address" name="address" readonly>
+            </div>
+            <div class="form-group">
+              <label for="citizenship">Citizenship of India by:</label>
+              <input type="text" class="form-control" id="citizenship" name="citizenship" readonly>
+            </div>
+            <div class="form-group">
+              <label for="voterID">Voter ID (if available):</label>
+              <input type="text" class="form-control" id="voterID" name="voterID" readonly>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm">
+            <div class="form-group">
+              <label class="mr-sm-2 mandatory" for="idProof">ID Proof:</label>
+              <img id="idProof" class="form-control">
+            </div>
+          </div>
+          <div class="col-sm">
+            <div class="form-group">
+              <label class="mr-sm-2 mandatory" for="idProof">Address Proof:</label>
+              <img id="addressProof" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm">
+            <div class="form-group">
+              <label for="rpoState">State:</label>
+              <input type="text" class="form-control" id="rpoState" name="rpoState" readonly>
+            </div>
+          </div>
+          <div class="col-sm">
+            <div class="form-group">
+              <label for="rpoDistrict">District:</label>
+              <input type="text" class="form-control" id="rpoDistrict" name="rpoDistrict" readonly>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm">
+            <div class="form-group">
+              <label for="centre">Registered to apply at:</label>
+              <input type="text" class="form-control" id="rpoCentre" name="rpoCentre" readonly>
+            </div>
+          </div>
+          <div class="col-sm">
+            <div class="form-group">
+              <label for="passportType">Passport Type:</label>
+              <input type="text" class="form-control" id="passportType" name="passportType" readonly>
+            </div>
+          </div>
+          <div class="col-sm">
+            <div class="form-group">
+              <label for="passportBookletPages">Pages in Passport Booklet:</label>
+              <input type="text" class="form-control" id="passportBookletPages" name="passportBookletPages" readonly>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 <script src="js/checkStatus.js"></script>

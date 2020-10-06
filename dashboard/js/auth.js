@@ -24,9 +24,18 @@ function setCookie(cname, cvalue, exdays) {
 function verifyCookie(success_callback) {
     pasAuth = getCookie('pas_auth');
     if (pasAuth != "") {
-        /* pasAuthDecoded = atob(pasAuth);
-        pasAuthCookieJSON = JSON.parse(pasAuthDecoded);
-        console.log(pasAuthCookieJSON); */
+        // check role
+        var decodedCookie = atob(pasAuth);
+        var cookieInfo = JSON.parse(decodedCookie);
+        var role = cookieInfo.role;
+        if (role != 'applicant') {
+            msgButton.onclick = function() {
+                window.location.href = "../";
+            }
+            showErrorMsg("Access Denied", "You are not allowed to access this portal. This incident is reported.");
+            return;
+        }
+        console.log(role);
         var xhttp = new XMLHttpRequest();
         xhttp.open("POST", "/pas_backend/authenticate.php", true);
         xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -44,7 +53,7 @@ function verifyCookie(success_callback) {
                 }
             }
         };
-        xhttp.send("validate=token");
+        xhttp.send("role=applicant&validate=token");
     } else {
         if (window.location.href.indexOf("dashboard/") > -1) {
             msgTitle.innerHTML = "Log In Required";

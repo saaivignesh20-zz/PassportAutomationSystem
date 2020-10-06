@@ -75,6 +75,21 @@ function loadPage(url) {
                         $("#checkStatusBtn").parent().css("display", "initial");
                         $("#renewBtn").parent().css("display", "none");
                     break;
+                    case 'rejected':
+                        $("#applyBtn").parent().css("display", "initial");
+                        $("#checkStatusBtn").parent().css("display", "none");
+                        $("#renewBtn").parent().css("display", "none");
+                    break;
+                    case 'verification':
+                        $("#applyBtn").parent().css("display", "none");
+                        $("#checkStatusBtn").parent().css("display", "initial");
+                        $("#renewBtn").parent().css("display", "none");
+                    break;
+                    case 'approved':
+                        $("#applyBtn").parent().css("display", "none");
+                        $("#checkStatusBtn").parent().css("display", "none");
+                        $("#renewBtn").parent().css("display", "none");
+                    break;
                     case false:
                         $("#renewBtn").parent().css("display", "none");
                         $("#checkStatusBtn").parent().css("display", "none");
@@ -82,6 +97,7 @@ function loadPage(url) {
                     break;
                 }
             });
+            getUserPassportNumber();
         });
     });
 }
@@ -96,7 +112,7 @@ function updateTime() {
 
 	dd = date.getDate()
 	dd < 10 ? dd = "0" + dd : dd =  dd;
-	MM = date.getMonth();
+	MM = date.getMonth() + 1;
 	// add leading zero
 	MM < 10 ? MM = "0" + MM : MM = MM;
 	yy = date.getFullYear();
@@ -143,7 +159,7 @@ function getUserScreenName(callback) {
             }
         }
     };
-    xhttp.send("info=screenName");
+    xhttp.send("role=applicant&info=screenName");
 }
 
 function getUserApplicationStatus(callback) {
@@ -161,7 +177,25 @@ function getUserApplicationStatus(callback) {
             }
         }
     };
-    xhttp.send("info=applicationStatus");
+    xhttp.send("role=applicant&info=applicationStatus");
+}
+
+function getUserPassportNumber() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("POST", "/pas_backend/getDetails.php", true);
+    xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhttp.setRequestHeader('Cache-Control', 'no-cache');
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText);
+            let responseArray = JSON.parse(this.responseText);
+            let result = responseArray['result'];
+            if (result != false) {
+                $("#passportApplicationHeading").html("<span style='color: teal'>Your Passport Number:<br><b style='font-size: 16pt'>" + result + "</b></span>")
+            }
+        }
+    };
+    xhttp.send("role=applicant&info=passportNumber");
 }
 
 function showFatalErrorMsg(title, msg) {

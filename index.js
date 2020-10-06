@@ -13,6 +13,7 @@ function showPasswordForm() {
 }
 
 function showLoginForm(fast) {
+    hideAllSnackMessages();
     if (!fast) {
         $("#passwordEntryForm").fadeOut()
         $("#backButton").fadeOut(function() {
@@ -296,7 +297,7 @@ function validateEmail(event) {
             }
 		}
     };
-	xhttp.send("validate=email&emailID=" + email_id);
+	xhttp.send("role=applicant&validate=email&emailID=" + email_id);
 }
 
 function validatePassword(event) {
@@ -331,7 +332,7 @@ function validatePassword(event) {
             }
 		}
     };
-    xhttp.send("validate=password&emailID=" + email_id + "&password=" + password + "&rememberMe=" + remember_me);
+    xhttp.send("role=applicant&validate=password&emailID=" + email_id + "&password=" + password + "&rememberMe=" + remember_me);
 }
 
 function showMsgModal(title, msg) {

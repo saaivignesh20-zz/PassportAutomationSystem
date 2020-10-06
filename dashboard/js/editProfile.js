@@ -49,7 +49,7 @@ function getUserProfileDetails() {
             }
         }
     };
-    xhttp.send("info=profileDetails");
+    xhttp.send("role=applicant&info=profileDetails");
 }
 
 function updateProfile(event) {
@@ -117,7 +117,7 @@ function updateUserProfileDetails() {
             }
         }
     };
-    xhttp.send($("#editProfileForm").serialize());
+    xhttp.send("role=applicant&" + $("#editProfileForm").serialize());
 }
 
 function updatePassword(event) {
@@ -155,14 +155,14 @@ function updatePassword(event) {
                             if (result == 'valid') {
                                 updateUserPassword(newPasswordValue);
                             } else {
-                                showErrorMsg("Update Password Failed", "The entered current password is incorrect. Please check and try again.");
+                                showSnackMessage("The entered current password is incorrect.", null, {type:'error',container:'#changePasswordValidationContainer',autoHide:false,fullWidth:true,leftAlign:true,noMargin:true})
                             }
                         } else {
                             showErrorMsg("Update Password Failed", "There was an unexpected error while updating the password. Please try again later.");
                         }
                     }
                 };
-                xhttp.send("password=" + currentPasswordValue);
+                xhttp.send("role=applicant&password=" + currentPasswordValue);
             } else {
                 showSnackMessage("Current password and new password cannot be same.", null, {type:'error',container:'#changePasswordValidationContainer',autoHide:false,fullWidth:true,leftAlign:true,noMargin:true})
             }
@@ -170,14 +170,6 @@ function updatePassword(event) {
             showSnackMessage("New password and confirm password do not match.", null, {type:'error',container:'#changePasswordValidationContainer',autoHide:false,fullWidth:true,leftAlign:true,noMargin:true})
         }
     }
-    
-    if (validateMsg == "") {
-		updateUserPassword(password);
-	} else {
-		console.log(validateMsg);
-		showSnackMessage(validateMsg, null, {type:'error',container:'#changePasswordValidationContainer',autoHide:false,fullWidth:true,leftAlign:true,noMargin:true})
-		goToTop();
-	}
 }
 
 function updateUserPassword(password) {
@@ -210,5 +202,5 @@ function updateUserPassword(password) {
             }
         }
     };
-    xhttp.send("password=" + password);
+    xhttp.send("role=applicant&password=" + password);
 }
