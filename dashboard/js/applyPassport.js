@@ -162,12 +162,12 @@ function validateStepOne(callback) {
 	// ID Proof - check for format
 	if (idProofNumberValue != "") {
 		if (/^[a-zA-Z0-9]+$/.test(idProofNumberValue) == false) {
-			validateMsg += "PAN Number can contain only alphanumeric characters.<br>"
+			validateMsg += "ID Card Number can contain only alphanumeric characters.<br>"
 		} else {
 
 		}
 	} else {
-		validateMsg += "ID Proof Number is a required field.<br>"
+		validateMsg += "ID Card Number is a required field.<br>"
 	}
 
 	// Voter ID - optional - check for format if it is provided
