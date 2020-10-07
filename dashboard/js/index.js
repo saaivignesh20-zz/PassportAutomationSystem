@@ -74,16 +74,19 @@ function loadPage(url) {
                         $("#applyBtn").parent().css("display", "none");
                         $("#checkStatusBtn").parent().css("display", "initial");
                         $("#renewBtn").parent().css("display", "none");
+                        $("#passportApplicationHeading").html("<span>Passport Application</span>")
                     break;
                     case 'rejected':
                         $("#applyBtn").parent().css("display", "initial");
                         $("#checkStatusBtn").parent().css("display", "none");
                         $("#renewBtn").parent().css("display", "none");
+                        $("#passportApplicationHeading").html("<span>Passport Application</span>")
                     break;
                     case 'verification':
                         $("#applyBtn").parent().css("display", "none");
                         $("#checkStatusBtn").parent().css("display", "initial");
                         $("#renewBtn").parent().css("display", "none");
+                        $("#passportApplicationHeading").html("<span>Passport Application</span>")
                     break;
                     case 'approved':
                         $("#applyBtn").parent().css("display", "none");
@@ -95,6 +98,7 @@ function loadPage(url) {
                         $("#renewBtn").parent().css("display", "none");
                         $("#checkStatusBtn").parent().css("display", "none");
                         $("#applyBtn").parent().css("display", "initial");
+                        $("#passportApplicationHeading").html("<span>Passport Application</span>")
                     break;
                 }
             });
