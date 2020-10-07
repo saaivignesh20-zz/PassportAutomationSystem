@@ -167,7 +167,7 @@ function showConfirmation(event) {
                 $("#resetPasswordButton").fadeOut(function() { $("#emailConfirmationButton").fadeIn(); $("#emailConfirmationText").fadeIn(); });
             }
         };
-        xhttp.send("emailID=" + resetEmail.value);
+        xhttp.send("role=applicant&emailID=" + resetEmail.value);
     } catch {
         $(".signon-button-text").show();
         $(".signon-loader-container").hide();
